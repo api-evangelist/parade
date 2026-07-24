@@ -1,0 +1,81 @@
+openapi: 3.0.0
+info:
+  title: Parade Transactions Available Trucks Carrier Synchronization API
+  description: Parade's APIs available for digital transactions
+  contact:
+    email: eng@parade.ai
+    name: Parade Eng Team
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.1.0
+servers:
+- url: https://api.capacity.stage.parade.ai
+security:
+- tokenAuth: []
+tags:
+- name: Carrier Synchronization
+paths:
+  /your-carrier-sync-webhook:
+    post:
+      operationId: carrier_sync_webhook
+      tags:
+      - Carrier Synchronization
+      summary: Carrier update notifications
+      description: 'Set this up if you want to receive carrier sync notifications from Parade.
+
+
+        These updates can happen in bursts and may be high traffic. We recommend exploring the carrier onboarding lookup API as an alternative.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CarrierSyncNotification'
+      responses:
+        '201':
+          description: notification received
+        '400':
+          description: ''
+components:
+  schemas:
+    CarrierSyncNotification:
+      type: object
+      required:
+      - update_type
+      - company_external_key
+      - company_name
+      - dot_number
+      properties:
+        update_type:
+          type: string
+          enum:
+          - C
+          - R
+          description: Update of C for confirmed, or R for rejected
+        dot_number:
+          type: string
+          description: DOT number of the carrier
+        mc_number:
+          type: string
+          description: MC number of the carrier
+        company_name:
+          type: string
+          example: ReedTMS
+          description: Name of the broker
+        enable_reservations:
+          type: boolean
+          description: Whether or not this carrier can digitally book. Needs to be checked in conjunction with `is_on_deck`
+        is_on_deck:
+          type: boolean
+          description: Whether or not the carrier is onboarded with the broker
+        company_external_key:
+          type: string
+          description: The unique key identifying the broker
+  securitySchemes:
+    tokenAuth:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: Contact us to get an authorization token

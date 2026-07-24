@@ -1,0 +1,85 @@
+openapi: 3.0.0
+info:
+  title: Parade Transactions Available Trucks Digital Conversion API
+  description: Parade's APIs available for digital transactions
+  contact:
+    email: eng@parade.ai
+    name: Parade Eng Team
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.1.0
+servers:
+- url: https://api.capacity.stage.parade.ai
+security:
+- tokenAuth: []
+tags:
+- name: Digital Conversion
+paths:
+  /your-digital-conversion-notification-webhook:
+    post:
+      operationId: digital_conversion_webhook
+      tags:
+      - Digital Conversion
+      summary: Quote and booking conversion notifications
+      description: Set this up if you want to receive quote and booking conversion notifications at a webhook on your end.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DigitalConversionNotification'
+      responses:
+        '201':
+          description: notification received
+        '400':
+          description: ''
+components:
+  schemas:
+    DigitalConversionNotification:
+      type: object
+      required:
+      - update_type
+      - posting_id
+      - company_external_key
+      - company_name
+      - dot_number
+      properties:
+        update_type:
+          type: string
+          enum:
+          - C
+          - R
+          description: Update of C for confirmed, or R for rejected
+        posting_id:
+          type: integer
+          description: Unique ID of the posting
+        load_reference_id:
+          type: string
+          example: A123123
+          description: Reference ID of the load
+        company_external_key:
+          type: string
+          description: Unique key related to the broker
+        company_name:
+          type: string
+          description: Name of the broker
+        dot_number:
+          type: string
+          description: DOT number of the carrier
+        mc_number:
+          type: string
+          description: MC number of the carrier
+        all_in_rate:
+          type: number
+          description: 'Total booked rate in USD, will only appear if the quote or booking was confirmed.
+
+
+            May be different from the initial quote/booking rate.
+
+            '
+  securitySchemes:
+    tokenAuth:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: Contact us to get an authorization token

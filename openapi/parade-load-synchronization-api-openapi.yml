@@ -1,0 +1,310 @@
+openapi: 3.0.0
+info:
+  title: Parade Transactions Available Trucks Load Synchronization API
+  description: Parade's APIs available for digital transactions
+  contact:
+    email: eng@parade.ai
+    name: Parade Eng Team
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.1.0
+servers:
+- url: https://api.capacity.stage.parade.ai
+security:
+- tokenAuth: []
+tags:
+- name: Load Synchronization
+paths:
+  /ls/syndication/loads/{external_posting_id}:
+    get:
+      operationId: get_load
+      tags:
+      - Load Synchronization
+      summary: 'Fetch updated info about a Load and it''s allowed actions here
+
+        '
+      description: 'Fetch updated info about a Load and it''s allowed actions here
+
+        '
+      parameters:
+      - name: external_posting_id
+        in: path
+        description: Unique `external_posting_id` of the Load that is being fetched
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: identifier
+      - name: dot_number
+        in: query
+        description: DOT number of carrier that is trying to view/perform actions on this Load
+        required: true
+        schema:
+          type: string
+          format: identifier
+        example: '123123'
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Load'
+        '400':
+          description: 'Invalid parameters
+
+            '
+        '401':
+          description: 'Invalid authentication
+
+            '
+        '404':
+          description: 'Posting matching this id not found. ID may be incorrect or posting was deleted
+
+            '
+        '410':
+          description: 'Load no longer available/valid
+
+            '
+        '500':
+          description: 'Service error, please notify Parade through our partner Slack or eng@parade.ai
+
+            '
+        '504':
+          description: 'Service unavailable, please retry later
+
+            '
+components:
+  schemas:
+    Load:
+      required:
+      - booking_link
+      - company_external_key
+      - reference_id
+      - stops
+      - visibility
+      type: object
+      properties:
+        reference_id:
+          type: string
+          format: identifier
+          example: A12123
+          description: 'This is the ID used for communication on the load between the carrier and broker.
+
+
+            This is unique per broker, but not unique across all brokers.
+
+            '
+        created_at:
+          type: string
+          format: date-time
+          example: 2020-01-01T00:00
+        updated_at:
+          type: string
+          format: date-time
+          example: 2020-01-01T00:00
+        external_posting_id:
+          type: string
+          format: identifier
+          example: A100B4
+          description: Unique internal ID for this load posting. Do not display this to carriers.
+        visibility:
+          deprecated: true
+          type: string
+          example: ALL
+          description: Deprecated field, please ignore.
+          enum:
+          - ALL
+        company_external_key:
+          type: string
+          format: identifier
+          example: reed
+          description: This is a unique identifier for every broker
+        company_name:
+          type: string
+          example: ReedTMS
+          description: Name of the broker
+        company_dot_number:
+          type: string
+          format: identifier
+          example: '123123123'
+          description: DOT number of the broker
+        company_mc_number:
+          type: string
+          example: '123123'
+          description: MC number of the broker
+        booking_link:
+          type: string
+          example: https://load.app/reed/1232132
+          description: Link that brings the carrier to the Parade booking page.
+        stops:
+          type: array
+          items:
+            $ref: '#/components/schemas/Stop'
+        bookable:
+          type: boolean
+          description: 'If this field is true and there is an offer_rate, the load is Book Now enabled.
+
+            '
+        offer_rate:
+          type: number
+          format: decimal
+          example: 2000
+          description: 'If this field exists and bookable is true, you can consider the load to be Book Now enabled.
+
+            '
+        offer_external_key:
+          type: string
+          example: '123123213'
+          description: A hash of the offer_rate + other variables
+        equipment:
+          type: string
+          example: 53ft Van
+          description: Human readable equipment string. Prefer displaying this over parsing `equipment_metadata`.
+        equipment_metadata:
+          $ref: '#/components/schemas/EquipmentMetadata'
+          example: '{"TRAILER_TYPE: {"VAN": true}, {"EXTRAS": {"LENGTH": 53}}}'
+          description: "Normalized equipment dictionary containing all trailer types and extras from the `equipment` string.\n\nWhile a best effort is made to properly translate it, it's best practice to show the `equipment` string to users to avoid miscommunication. \n\nFor all possible keys, please refer to https://www.notion.so/parade/Equipment-Metadata-EXTERNAL-f801210627c5487f8940cf02b3a25afd?pvs=4\n"
+        owner_email:
+          deprecated: true
+          type: string
+          description: 'Deprecated, please use contact_email. The broker''s email contact for this load specifically.
+
+            '
+          example: bob@broker.com
+        owner_phone:
+          deprecated: true
+          type: string
+          description: 'Deprecated, please use contact_phone. The broker''''s phone contact for this load specifically.
+
+            '
+          example: '+133321234'
+        weight:
+          type: number
+          description: Weight of the load in pounds
+          example: 4000
+        commodity:
+          type: string
+          example: Logs
+        route_metadata:
+          deprecated: true
+          type: object
+          description: Deprecated, please ignore
+        contact_email:
+          type: string
+          description: 'The broker''s email contact for this load specifically
+
+            '
+          example: bob@broker.com
+        contact_phone:
+          type: string
+          description: 'The broker''s phone contact for this load specifically
+
+            '
+          example: '+133321234'
+        distance:
+          type: number
+          example: 612.52
+          description: Distance of the route in miles
+        display_metadata:
+          description: "Key/value dictionary with additional load information. \n\nPlease display these on every load, typically mapped to your comments or additional information field.\n"
+          type: object
+          example:
+            TARPS: required
+            Additional comments: Don't be late!
+        allowed_actions:
+          type: array
+          description: "This field should only used be used if you are using the individual load lookup by DOT number, which will tell you what that specific carrier DOT is able to do on this load. \n\nWhen fetching the list of loads, this will only show Quote by default, and you should use the `bookable` flag and `offer_rate` to determine Book Now eligibility.\n"
+          items:
+            type: string
+            enum:
+            - quote
+            - book
+          example:
+          - quote
+          - book
+    EquipmentMetadata:
+      type: object
+      description: 'For all possible equipment metadata keys, please refer to https://www.notion.so/parade/Equipment-Metadata-EXTERNAL-f801210627c5487f8940cf02b3a25afd?pvs=4
+
+        '
+      properties:
+        TRAILER_TYPE:
+          type: object
+          example:
+            TRAILER_TYPE:
+              VAN: true
+          description: Key value pairings indicating all valid equipment trailer types
+        EXTRAS:
+          type: object
+          example:
+            EXTRAS:
+              LENGTH: 53
+              TEAM: true
+          description: Key value pairings indicating all other extras and accessorials
+    Stop:
+      type: object
+      required:
+      - city
+      - state
+      - stop_type
+      properties:
+        city:
+          type: string
+          example: Los Angeles
+        state:
+          type: string
+          example: CA
+        stop_type:
+          type: string
+          example: P
+          description: P is a pick, D is a drop
+          enum:
+          - P
+          - D
+        stop_num:
+          type: integer
+          example: 1
+        postal_code:
+          type: string
+          example: '94158'
+        date:
+          type: string
+          format: date
+          description: The date for pickup/delivery activity
+          example: '2020-01-01'
+        appt_time:
+          type: string
+          format: time
+          description: Appointment time
+          example: 07:00:00
+        appt_inst:
+          type: string
+          description: Appointment instructions
+          example: Text when ready
+        early_time:
+          type: string
+          format: time
+          description: Earliest pickup time
+          example: 07:00:00
+        late_time:
+          type: string
+          format: time
+          description: Latest pickup time
+          example: 08:00:00
+        strt_address_1:
+          type: string
+          description: Street Address (First line). Most brokers suppress this data.
+          example: 1010 sesame street
+        strt_address_2:
+          type: string
+          description: Street Address (Second line). Most brokers suppress this data.
+          example: ASK BROKER
+  securitySchemes:
+    tokenAuth:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: Contact us to get an authorization token

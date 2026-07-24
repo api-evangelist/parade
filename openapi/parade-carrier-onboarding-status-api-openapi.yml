@@ -1,0 +1,163 @@
+openapi: 3.0.0
+info:
+  title: Parade Transactions Available Trucks Carrier Onboarding Status API
+  description: Parade's APIs available for digital transactions
+  contact:
+    email: eng@parade.ai
+    name: Parade Eng Team
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.1.0
+servers:
+- url: https://api.capacity.stage.parade.ai
+security:
+- tokenAuth: []
+tags:
+- name: Carrier Onboarding Status
+paths:
+  /d/carriers/{dot_number}/onboarding-status:
+    get:
+      operationId: get_carrier
+      tags:
+      - Carrier Onboarding Status
+      summary: Get the onboarding status of a carrier
+      description: 'Given the DOT number and the broker external key, we can share the current onboarding status for that carrier.
+
+        '
+      parameters:
+      - in: path
+        name: dot_number
+        required: true
+        schema:
+          type: string
+          format: identifier
+        description: DOT number of the carrier being looked up
+      - in: query
+        name: company_external_key
+        required: true
+        schema:
+          type: string
+          format: identifier
+        description: External key of the broker that this carrier belongs to
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CarrierOnboardingStatus'
+        '400':
+          description: 'Invalid parameters
+
+            '
+        '401':
+          description: 'Invalid authentication
+
+            '
+        '404':
+          description: 'Carrier matching this id not found. ID may be incorrect.
+
+            '
+        '500':
+          description: 'Service error, please notify Parade through our partner Slack or eng@parade.ai
+
+            '
+        '504':
+          description: 'Service unavailable, please retry later
+
+            '
+  /d/carriers-by-mc/{mc_number}/onboarding-status:
+    get:
+      operationId: get_carrier_by_mc
+      tags:
+      - Carrier Onboarding Status
+      summary: Get the onboarding status of a carrier with a MC Number
+      description: 'Given the MC number and the broker external key, we can share the current onboarding status for that carrier.
+
+        '
+      parameters:
+      - in: path
+        name: mc_number
+        required: true
+        schema:
+          type: string
+          format: identifier
+        description: MC number of the carrier being looked up
+      - in: query
+        name: company_external_key
+        required: true
+        schema:
+          type: string
+          format: identifier
+        description: External key of the broker that this carrier belongs to
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CarrierOnboardingStatus'
+        '400':
+          description: 'Invalid parameters
+
+            '
+        '401':
+          description: 'Invalid authentication
+
+            '
+        '404':
+          description: 'Carrier matching this id not found. ID may be incorrect.
+
+            '
+        '500':
+          description: 'Service error, please notify Parade through our partner Slack or eng@parade.ai
+
+            '
+        '504':
+          description: 'Service unavailable, please retry later
+
+            '
+components:
+  schemas:
+    CarrierOnboardingStatus:
+      type: object
+      required:
+      - dot_number
+      - enable_quotes
+      - enable_reservations
+      - enabled_for_parade
+      properties:
+        dot_number:
+          type: string
+          example: A12123
+          description: The DOT number of the carrier
+        enable_quotes:
+          type: boolean
+          description: Determines whether or not a carrier can quote.
+        enable_reservations:
+          type: boolean
+          description: 'If both `enabled_for_parade` and this flag are true, the carrier can digitally book.
+
+            '
+        enabled_for_parade:
+          type: boolean
+          description: Determines if the broker has onboarded this carrier already.
+        carrier_onboarding_link:
+          type: string
+          format: url
+          description: 'If the broker is able to share an onboarding link, this is where the carrier should go to be onboarded.
+
+            '
+        onboarded_emails:
+          type: array
+          example:
+          - carrier1@carrier.com
+          - otheronboardedcarrier@carrier.com
+          description: These are all the emails that the broker currently has onboarded for the carrier.
+  securitySchemes:
+    tokenAuth:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: Contact us to get an authorization token

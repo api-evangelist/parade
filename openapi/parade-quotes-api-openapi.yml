@@ -1,0 +1,335 @@
+openapi: 3.0.0
+info:
+  title: Parade Transactions Available Trucks Quotes API
+  description: Parade's APIs available for digital transactions
+  contact:
+    email: eng@parade.ai
+    name: Parade Eng Team
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.1.0
+servers:
+- url: https://api.capacity.stage.parade.ai
+security:
+- tokenAuth: []
+tags:
+- name: Quotes
+paths:
+  /ls/syndication/quote:
+    post:
+      operationId: add_quote
+      tags:
+      - Quotes
+      summary: Post your quotes here
+      description: "Post your quotes here.\n\nEach time a quote is created, we will display the carrier quote on our broker portal and also notify the broker via e-email.     \nA carrier may quote multiple times through this endpoint, but please note that each time the broker will be notified.\n\nIf a carrier is disqualified for this broker or marked as no dispatch, the broker may not receive this notification.\n"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Quote'
+      responses:
+        '201':
+          description: 'Quote created
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteCreationResponse'
+        '400':
+          description: 'Invalid input, object invalid
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quote400ErrorResponse'
+        '401':
+          description: 'Invalid authentication
+
+            '
+        '404':
+          description: 'Load not found
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quote404ErrorResponse'
+        '406':
+          description: 'Carrier disqualified: the carrier was disabled by the broker. The carrier should follow the broker''s onboarding link or reach out to the broker directly.
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quote406ErrorResponse'
+        '410':
+          description: 'Load no longer available/valid
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quote410ErrorResponse'
+        '500':
+          description: 'Service error, please notify eng@parade.ai
+
+            '
+        '504':
+          description: 'Service unavailable, please retry later
+
+            '
+  /ls/syndication/quote/{quote_id}:
+    get:
+      operationId: get_quote
+      tags:
+      - Quotes
+      summary: Retrieve Quote
+      description: Retrieve information about a created quote
+      parameters:
+      - in: path
+        name: quote_id
+        required: true
+        schema:
+          type: integer
+        description: Quote ID that you are retrieving
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteStatus'
+        '400':
+          description: 'Invalid input, object invalid
+
+            '
+        '401':
+          description: 'Invalid authentication
+
+            '
+        '404':
+          description: 'Load not found
+
+            '
+        '410':
+          description: 'Load no longer available/valid
+
+            '
+        '500':
+          description: 'Service error, please notify eng@parade.ai
+
+            '
+        '504':
+          description: 'Service unavailable, please retry later
+
+            '
+  /ls/syndication/quote/{quote_id}/cancel:
+    post:
+      operationId: cancel_quote
+      tags:
+      - Quotes
+      summary: Cancels a Quote
+      description: 'Cancels/expires a quote that hasn''t been accepted yet. A canceled quote is still shown to the broker but cannot be automatically booked.
+
+
+        If the quote was already accepted, please use the Reservation `/drop` endpoint to cancel the reservation.
+
+        '
+      parameters:
+      - in: path
+        name: quote_id
+        required: true
+        schema:
+          type: integer
+        description: Quote ID that you are canceling
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cancel'
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteStatus'
+        '400':
+          description: 'Invalid input, object invalid
+
+            '
+        '401':
+          description: 'Invalid authentication
+
+            '
+        '404':
+          description: 'Quote not found
+
+            '
+        '410':
+          description: 'Quote was already expired or accepted. If it was accepted, you can still cancel the reservation using the drop endpoint
+
+            '
+        '500':
+          description: 'Service error, please notify eng@parade.ai
+
+            '
+        '504':
+          description: 'Service unavailable, please retry later
+
+            '
+components:
+  schemas:
+    QuoteCreationResponse:
+      type: object
+      required:
+      - id
+      - message
+      properties:
+        id:
+          type: integer
+          example: 1341
+          description: Unique Parade ID for this quote.
+        message:
+          type: string
+          example: quote created
+          description: Message indicating the status of the quote creation.
+    Quote400ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
+          example: WrongMcOrDotNumberError
+          description: Error message indicating the failure
+    Quote404ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
+          example: Load not found
+          description: Error message indicating the failure
+    Quote406ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
+          example: Carrier disqualified
+          description: Error message indicating the failure
+    Quote410ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
+          example: Load is no longer available
+          description: Error message indicating the failure
+    Quote:
+      type: object
+      required:
+      - carrier_dot_number
+      - carrier_email
+      - carrier_name
+      - carrier_phone_number
+      - company_external_key
+      - external_posting_id
+      - quote_amount
+      properties:
+        carrier_name:
+          type: string
+          example: Bob's Trucking
+        carrier_dot_number:
+          type: string
+          example: '23123123'
+        carrier_mc_number:
+          type: string
+          example: '13122'
+        carrier_email:
+          type: string
+          example: test@parade.ai
+        carrier_phone_number:
+          type: string
+          example: 510-022-0222
+        company_external_key:
+          type: string
+          example: reed
+        external_posting_id:
+          type: string
+          format: identifier
+          example: A100B4
+          description: Unique internal ID for this load posting. Do not display this to carriers.
+        load_reference_id:
+          type: string
+          example: R131232
+        quote_amount:
+          type: string
+          example: '680.00'
+    Cancel:
+      type: object
+      properties:
+        reason:
+          type: string
+          description: Optional reason for the quote cancellation
+    QuoteStatus:
+      type: object
+      required:
+      - load_id
+      - quote_id
+      - quote_amount
+      - created_at
+      - dot_number
+      - broker_external_key
+      - acceptance_status
+      properties:
+        load_id:
+          type: string
+          example: A12123
+          description: Reference number of the load
+        quote_id:
+          type: integer
+          description: Unique ID of the Quote
+        quote_amount:
+          type: number
+          description: Total quote amount in USD
+        created_at:
+          type: string
+          description: When this quote was created
+        dot_number:
+          type: string
+          description: DOT number of the carrier
+        mc_number:
+          type: string
+          description: MC number of the carrier
+        central_dispatch_email:
+          type: string
+          description: Contact email of the carrier who quoted
+        central_dispatch_phone:
+          type: string
+          description: Contact phone of the carrier who quoted
+        broker_external_key:
+          type: string
+          description: Unique key identifying the broker
+        acceptance_status:
+          type: string
+          enum:
+          - Conflict
+          - Confirm
+          - Needs Action
+        expired_at:
+          type: string
+          description: When the quote was expired
+  securitySchemes:
+    tokenAuth:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: Contact us to get an authorization token

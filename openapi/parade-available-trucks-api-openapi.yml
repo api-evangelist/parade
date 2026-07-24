@@ -1,0 +1,157 @@
+openapi: 3.0.0
+info:
+  title: Parade Transactions Available Trucks API
+  description: Parade's APIs available for digital transactions
+  contact:
+    email: eng@parade.ai
+    name: Parade Eng Team
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.1.0
+servers:
+- url: https://api.capacity.stage.parade.ai
+security:
+- tokenAuth: []
+tags:
+- name: Available Trucks
+paths:
+  /ls/syndication/post-truck:
+    post:
+      operationId: add_truck
+      tags:
+      - Available Trucks
+      summary: Post your Available Trucks here
+      description: "Post your Available Trucks here. \n\nThis will be matched to our broker's loads, and they will be able to view your trucks in the Parade broker portal.\n\nThe carrier may also receive matched loads via an email response from Parade if the broker has this feature enabled.\n"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostedTruck'
+      responses:
+        '201':
+          description: 'Posted truck created
+
+            '
+        '400':
+          description: 'Invalid input, object invalid
+
+            '
+        '401':
+          description: 'Invalid authentication
+
+            '
+        '404':
+          description: '`broker_external_key` matching customer not found
+
+            '
+        '500':
+          description: 'Service error, please notify Parade through our partner Slack or eng@parade.ai
+
+            '
+        '504':
+          description: 'Service unavailable, please retry later
+
+            '
+components:
+  schemas:
+    PostedTruck:
+      type: object
+      required:
+      - dot_number
+      - carrier_contact_email
+      - carrier_contact_phone
+      - equipment
+      - src_city
+      - src_state
+      - src_available_date
+      - src_available_time
+      - external_id
+      properties:
+        dot_number:
+          type: string
+          example: '23123123'
+          format: identifier
+          description: DOT number of the carrier. We will update posted trucks based off the dot_number + external_id combo.
+        external_id:
+          type: string
+          format: identifier
+          example: '1231232'
+          description: 'Unique identifier for this available truck move.
+
+
+            Recommended to use tractor ID + move ID. Can just be tractor ID depending on your configuration.
+
+
+            We will update posted trucks based off the dot_number + external_id combo.
+
+            '
+        tractor_id:
+          type: string
+          format: identifier
+          example: '1231232'
+          description: Tractor ID for this truck.
+        carrier_contact_email:
+          type: string
+          format: email
+          example: test@parade.ai
+          description: The email of the carrier's dispatcher
+        carrier_contact_phone:
+          type: string
+          example: 510-022-0222
+          description: The phone number of the carrier's dispatcher
+        broker_external_key:
+          type: string
+          example: reed
+          description: 'The external key corresponding to the broker, if you only want to post to one broker.
+
+
+            It not sent, null, or blank, this truck will be posted to all brokers with this integration enabled.
+
+            '
+        equipment:
+          type: string
+          example: Van
+          description: 'The equipment string corresponding to the truck type. Must use Parade''s standard equipment strings.
+
+            '
+        src_city:
+          type: string
+          example: Los Angeles
+          description: City where the truck is available
+        src_state:
+          type: string
+          example: TX
+          description: State where the truck is available
+        expired_at:
+          type: string
+          format: date-time
+          example: 2020-01-01T00:00
+          description: 'When this truck is no longer available, an isoformat string in UTC. Must be after src_available_date + src_available_time
+
+            '
+        src_available_date:
+          type: string
+          format: date
+          example: '2020-08-01'
+          description: Day this truck is initially available
+        src_available_time:
+          type: string
+          format: time
+          example: '23:00'
+          description: 'Time of day this truck is initially available, in UTC
+
+            '
+        destinations:
+          type: array
+          example:
+          - Los Angeles, CA
+          - Midwest
+          - TX
+          description: List of destination strings where the truck wants to go
+  securitySchemes:
+    tokenAuth:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: Contact us to get an authorization token
