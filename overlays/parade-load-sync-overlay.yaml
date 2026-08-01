@@ -1,0 +1,17 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Parade Load Feed
+  version: 1.0.0
+extends: openapi/parade-load-sync-openapi.yaml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-source: https://docs.syndication.parade.ai/
+    x-apievangelist-industry: Freight & Logistics
+    x-apievangelist-production-server: https://api.syndication.parade.ai
+- target: $.servers
+  update:
+  - url: https://api.syndication.parade.ai
+    description: Production
+  - url: https://api.syndication.stage.parade.ai
+    description: Staging

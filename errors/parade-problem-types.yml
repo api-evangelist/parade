@@ -1,0 +1,43 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/parade-digital-transactions-openapi.yaml, openapi/parade-load-sync-openapi.yaml
+# Parade returns conventional HTTP status codes with a plain-text/description body;
+# responses are NOT application/problem+json, so format is http-status (not rfc9457).
+format: http-status
+envelope:
+  note: >
+    4xx/5xx responses carry a human-readable error message describing the failure.
+    Quote errors (400/404/406/410) return typed JSON error bodies
+    (Quote400ErrorResponse, Quote404ErrorResponse, Quote406ErrorResponse, Quote410ErrorResponse).
+problems:
+- status: 400
+  title: Invalid input / invalid parameters
+  meaning: Request body or query parameters failed validation.
+  applies_to: [add_quote, book_now, drop_load, add_truck, cancel_quote, get_quote, get_booking, get_load, search_loads, get_carrier, get_carrier_by_mc]
+- status: 401
+  title: Invalid authentication
+  meaning: Missing or invalid Authorization token.
+  remediation: Contact Parade to obtain an authorization token; send it in the Authorization header.
+  applies_to: [all]
+- status: 404
+  title: Resource not found
+  meaning: Load, company, booking, quote, or carrier matching the supplied id was not found.
+  applies_to: [add_quote, book_now, drop_load, add_truck, get_quote, get_booking, get_load, cancel_quote, get_carrier, get_carrier_by_mc]
+- status: 406
+  title: Carrier disqualified
+  meaning: The carrier was disabled by the broker. The carrier should follow the broker's onboarding link or reach out to the broker directly.
+  applies_to: [add_quote]
+- status: 410
+  title: Load no longer available / offer no longer valid
+  meaning: The load is gone, the offer/quote expired, or the booking is no longer valid.
+  applies_to: [book_now, get_quote, get_booking, get_load, cancel_quote]
+- status: 500
+  title: Service error
+  meaning: Internal Parade service error.
+  remediation: Notify Parade through the partner Slack or eng@parade.ai.
+  applies_to: [all]
+- status: 504
+  title: Service unavailable
+  meaning: Upstream/service timeout.
+  remediation: Retry later.
+  applies_to: [all]

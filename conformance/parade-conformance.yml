@@ -1,0 +1,25 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/parade-digital-transactions-openapi.yaml, openapi/parade-load-sync-openapi.yaml, openapi/parade-partner-webhooks-openapi.yaml
+standards:
+- id: openapi-3.0
+  conforms: true
+  evidence: All three published specs are OpenAPI 3.0.0.
+- id: apikey-auth
+  conforms: true
+  evidence: securitySchemes tokenAuth type apiKey in header (Authorization).
+- id: oauth2
+  conforms: false
+  evidence: No oauth2 security schemes; token-based API-key auth only.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Error responses use plain descriptions / typed JSON error bodies, not application/problem+json.
+- id: pagination
+  conforms: true
+  evidence: search_loads supports page/limit query params and returns x-total-count header.
+- id: idempotency
+  conforms: false
+  evidence: No idempotency-key header/parameter documented.
+- id: webhooks
+  conforms: true
+  evidence: Partner-side digital-conversion and carrier-sync webhooks documented (parade-partner-webhooks-openapi.yaml).

@@ -1,0 +1,25 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.syndication.parade.ai/
+description: >
+  Parade publishes a separate staging environment for syndication/integration partners.
+  The published OpenAPI servers point at the stage hosts; production hosts share the same
+  path surface. No public magic test values (test cards/DOT numbers) are published;
+  test data is provisioned per partner along with the authorization token.
+environments:
+- name: staging
+  transactions_base_url: https://api.capacity.stage.parade.ai
+  load_feed_base_url: https://api.syndication.stage.parade.ai
+- name: production
+  transactions_base_url: https://api.capacity.parade.ai
+  load_feed_base_url: https://api.syndication.parade.ai
+auth:
+  note: >
+    A staging authorization token is issued by Parade to each partner
+    (Authorization header). Contact Parade to obtain one.
+test_values:
+  published: false
+  note: >
+    Example identifiers appear in the OpenAPI (e.g. external_posting_id A100B4,
+    company_external_key "reed", dot_number "123123") but these are documentation
+    examples, not guaranteed-live test fixtures. Real test data is provisioned per partner.

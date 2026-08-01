@@ -1,0 +1,139 @@
+openapi: 3.0.0
+servers:
+- url: https://your-url
+info:
+  title: Parade Syndication Webhooks
+  description: 'Webhooks set up on the partner side to receive notifications from Parade.
+
+
+    Please contact us to set up URLs.
+
+    '
+  contact:
+    email: eng@parade.ai
+    name: Parade Eng Team
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.1.0
+security: []
+paths:
+  /your-digital-conversion-notification-webhook:
+    post:
+      operationId: digital_conversion_webhook
+      tags:
+      - Digital Conversion
+      summary: Quote and booking conversion notifications
+      description: Set this up if you want to receive quote and booking conversion notifications at a
+        webhook on your end.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DigitalConversionNotification'
+      responses:
+        '201':
+          description: notification received
+        '400':
+          description: ''
+  /your-carrier-sync-webhook:
+    post:
+      operationId: carrier_sync_webhook
+      tags:
+      - Carrier Synchronization
+      summary: Carrier update notifications
+      description: 'Set this up if you want to receive carrier sync notifications from Parade.
+
+
+        These updates can happen in bursts and may be high traffic. We recommend exploring the carrier
+        onboarding lookup API as an alternative.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CarrierSyncNotification'
+      responses:
+        '201':
+          description: notification received
+        '400':
+          description: ''
+components:
+  schemas:
+    DigitalConversionNotification:
+      type: object
+      required:
+      - update_type
+      - posting_id
+      - company_external_key
+      - company_name
+      - dot_number
+      properties:
+        update_type:
+          type: string
+          enum:
+          - C
+          - R
+          description: Update of C for confirmed, or R for rejected
+        posting_id:
+          type: integer
+          description: Unique ID of the posting
+        load_reference_id:
+          type: string
+          example: A123123
+          description: Reference ID of the load
+        company_external_key:
+          type: string
+          description: Unique key related to the broker
+        company_name:
+          type: string
+          description: Name of the broker
+        dot_number:
+          type: string
+          description: DOT number of the carrier
+        mc_number:
+          type: string
+          description: MC number of the carrier
+        all_in_rate:
+          type: number
+          description: 'Total booked rate in USD, will only appear if the quote or booking was confirmed.
+
+
+            May be different from the initial quote/booking rate.
+
+            '
+    CarrierSyncNotification:
+      type: object
+      required:
+      - update_type
+      - company_external_key
+      - company_name
+      - dot_number
+      properties:
+        update_type:
+          type: string
+          enum:
+          - C
+          - R
+          description: Update of C for confirmed, or R for rejected
+        dot_number:
+          type: string
+          description: DOT number of the carrier
+        mc_number:
+          type: string
+          description: MC number of the carrier
+        company_name:
+          type: string
+          example: ReedTMS
+          description: Name of the broker
+        enable_reservations:
+          type: boolean
+          description: Whether or not this carrier can digitally book. Needs to be checked in conjunction
+            with `is_on_deck`
+        is_on_deck:
+          type: boolean
+          description: Whether or not the carrier is onboarded with the broker
+        company_external_key:
+          type: string
+          description: The unique key identifying the broker

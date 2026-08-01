@@ -1,0 +1,28 @@
+generated: '2026-07-20'
+method: derived
+source: >
+  openapi/parade-digital-transactions-openapi.yaml,
+  openapi/parade-load-sync-openapi.yaml,
+  https://docs.syndication.parade.ai/
+versioning:
+  scheme: info.version
+  current: '1.1.0'
+  docs: https://docs.syndication.parade.ai/
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No public deprecation policy or RFC 8594 Sunset/Deprecation header support documented.
+sla:
+  url: null
+status_page: null
+deprecated_operations: []
+environments:
+  production:
+  - https://api.capacity.parade.ai
+  - https://api.syndication.parade.ai
+  staging:
+  - https://api.capacity.stage.parade.ai
+  - https://api.syndication.stage.parade.ai
+support:
+  email: eng@parade.ai
+  partner_channel: Parade partner Slack

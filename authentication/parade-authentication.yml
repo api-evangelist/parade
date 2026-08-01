@@ -1,0 +1,17 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/parade-digital-transactions-openapi.yaml, openapi/parade-load-sync-openapi.yaml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: tokenAuth
+  type: apiKey
+  in: header
+  parameter: Authorization
+  description: Contact us to get an authorization token
+  sources:
+  - openapi/parade-digital-transactions-openapi.yaml
+  - openapi/parade-load-sync-openapi.yaml

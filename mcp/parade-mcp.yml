@@ -1,0 +1,43 @@
+generated: '2026-07-20'
+method: derived
+status: candidate
+source: openapi/parade-digital-transactions-openapi.yaml, openapi/parade-load-sync-openapi.yaml
+# No official hosted/remote Parade MCP server was found. This is a candidate tool list
+# derived one-to-one from the published API operations (partner-side webhooks excluded).
+server:
+  name: parade
+  transport: http
+tools:
+- name: search_loads
+  description: Search for available loads by state, date and equipment (paginated).
+  source_operation: openapi/parade-load-sync-openapi.yaml#search_loads
+- name: get_load
+  description: Fetch updated info about a load and its allowed actions.
+  source_operation: openapi/parade-digital-transactions-openapi.yaml#get_load
+- name: add_quote
+  description: Post a carrier quote against a load.
+  source_operation: openapi/parade-digital-transactions-openapi.yaml#add_quote
+- name: get_quote
+  description: Retrieve information about a created quote.
+  source_operation: openapi/parade-digital-transactions-openapi.yaml#get_quote
+- name: cancel_quote
+  description: Cancel/expire a quote that has not been accepted yet.
+  source_operation: openapi/parade-digital-transactions-openapi.yaml#cancel_quote
+- name: book_now
+  description: Book a load for a carrier (Book Now).
+  source_operation: openapi/parade-digital-transactions-openapi.yaml#book_now
+- name: get_booking
+  description: Retrieve information about a created booking.
+  source_operation: openapi/parade-digital-transactions-openapi.yaml#get_booking
+- name: drop_load
+  description: Cancel a carrier booking (carrier dropped the load).
+  source_operation: openapi/parade-digital-transactions-openapi.yaml#drop_load
+- name: add_truck
+  description: Post an available truck to be matched to broker loads.
+  source_operation: openapi/parade-digital-transactions-openapi.yaml#add_truck
+- name: get_carrier
+  description: Get carrier onboarding status by DOT number.
+  source_operation: openapi/parade-digital-transactions-openapi.yaml#get_carrier
+- name: get_carrier_by_mc
+  description: Get carrier onboarding status by MC number.
+  source_operation: openapi/parade-digital-transactions-openapi.yaml#get_carrier_by_mc

@@ -1,0 +1,56 @@
+generated: '2026-07-20'
+method: derived
+source: >
+  openapi/parade-digital-transactions-openapi.yaml,
+  openapi/parade-load-sync-openapi.yaml,
+  https://docs.syndication.parade.ai/
+docs: https://docs.syndication.parade.ai/
+authentication:
+  style: api-key
+  scheme: tokenAuth
+  location: header
+  parameter: Authorization
+  note: Token issued by Parade to syndication/integration partners; see authentication/parade-authentication.yml
+identifiers:
+  company_external_key: External key identifying the broker/customer; required on most write operations.
+  external_posting_id: Unique internal Parade ID for a load posting; must NOT be displayed to carriers.
+  reference_id: Broker-facing load reference (unique per broker, not globally unique).
+  dot_number: Carrier DOT number.
+  mc_number: Carrier MC number.
+pagination:
+  style: page-number
+  params:
+    page: Page number to retrieve (defaults to 1).
+    limit: Number of records per page (defaults to 2000).
+  response_headers:
+    x-total-count: Total number of records the current filters would return.
+  applies_to: [search_loads]
+  note: Query and paginate until all pages consumed; a load no longer returned is unavailable.
+idempotency:
+  supported: false
+  note: >
+    No idempotency-key mechanism is documented. Duplicate quotes are allowed (each notifies the broker);
+    a carrier may quote multiple times through add_quote.
+error_handling:
+  format: http-status
+  detail: See errors/parade-problem-types.yml
+  async_booking: >
+    book_now may return 201 (booked) synchronously when Parade is API-integrated to the broker TMS (80%+ of cases),
+    or 202 (received, still processing) when the broker is not API-integrated (async RPA / manual, up to ~30 min).
+    Subscribe to the digital-conversion webhook for booking-confirmation events.
+versioning:
+  scheme: info.version
+  current: 1.1.0
+  note: Version carried in the OpenAPI info.version; no dated/header API version negotiation documented.
+webhooks:
+  supported: true
+  detail: >
+    Partner-side webhooks receive digital-conversion (quote/booking) and carrier-sync notifications.
+    See openapi/parade-partner-webhooks-openapi.yaml
+environments:
+  staging: https://api.capacity.stage.parade.ai (transactions), https://api.syndication.stage.parade.ai (load feed)
+  note: See sandbox/parade-sandbox.yml
+cross_links:
+  errors: errors/parade-problem-types.yml
+  authentication: authentication/parade-authentication.yml
+  lifecycle: lifecycle/parade-lifecycle.yml

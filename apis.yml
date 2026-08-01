@@ -1,25 +1,215 @@
 aid: parade
 name: Parade
-description: Parade is a company surfaced as a portfolio company of menlo-ventures and added to the API
-  Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  Parade is an AI-powered capacity-management and carrier-access platform for freight brokers. It layers
+  on top of a broker's existing Transportation Management System (TMS) and load boards to surface truck
+  availability, syndicate loads to third-party loadboards and carriers, and digitally transact quotes and
+  bookings. Parade's syndication APIs let integration partners search available loads, submit carrier
+  quotes, book loads (Book Now), post available trucks, check carrier onboarding status, and receive
+  digital-conversion and carrier-sync webhooks. Its CoDriver AI agent handles inbound carrier calls and
+  emails. Parade is backed by Menlo Ventures and serves freight brokerages that have collectively
+  transacted tens of billions of dollars in freight.
 url: https://raw.githubusercontent.com/api-evangelist/parade/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://www.parade.ai/favicon.png
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - menlo-ventures
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profiled
+x-tier-reason: enriched-from-public-openapi
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-20'
 tags:
 - Company
-apis: []
+- Freight
+- Logistics
+- Trucking
+- Supply Chain
+- Capacity Management
+- Freight Brokerage
+- Transportation
+- Load Board
+- Artificial Intelligence
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: parade:parade-available-trucks-api
+  name: Parade Available Trucks API
+  description: The Available Trucks API from Parade — 1 operation(s) for available trucks.
+  humanURL: https://docs.syndication.parade.ai/
+  baseURL: https://api.capacity.parade.ai
+  tags:
+  - Available Trucks
+  properties:
+  - type: OpenAPI
+    url: openapi/parade-available-trucks-api-openapi.yml
+  - type: Documentation
+    url: https://docs.syndication.parade.ai/
+  - type: Webhooks
+    url: openapi/parade-partner-webhooks-openapi.yaml
+- aid: parade:parade-bookings-api
+  name: Parade Bookings API
+  description: The Bookings API from Parade — 3 operation(s) for bookings.
+  humanURL: https://docs.syndication.parade.ai/
+  baseURL: https://api.capacity.parade.ai
+  tags:
+  - Bookings
+  properties:
+  - type: OpenAPI
+    url: openapi/parade-bookings-api-openapi.yml
+  - type: Documentation
+    url: https://docs.syndication.parade.ai/
+  - type: Webhooks
+    url: openapi/parade-partner-webhooks-openapi.yaml
+- aid: parade:parade-carrier-onboarding-status-api
+  name: Parade Carrier Onboarding Status API
+  description: >-
+    The Carrier Onboarding Status API from Parade — 2 operation(s) for carrier onboarding status.
+  humanURL: https://docs.syndication.parade.ai/
+  baseURL: https://api.capacity.parade.ai
+  tags:
+  - Carrier Onboarding Status
+  properties:
+  - type: OpenAPI
+    url: openapi/parade-carrier-onboarding-status-api-openapi.yml
+  - type: Documentation
+    url: https://docs.syndication.parade.ai/
+  - type: Webhooks
+    url: openapi/parade-partner-webhooks-openapi.yaml
+- aid: parade:parade-carrier-synchronization-api
+  name: Parade Carrier Synchronization API
+  description: >-
+    The Carrier Synchronization API from Parade — 1 operation(s) for carrier synchronization.
+  humanURL: https://docs.syndication.parade.ai/
+  baseURL: https://api.capacity.parade.ai
+  tags:
+  - Carrier Synchronization
+  properties:
+  - type: OpenAPI
+    url: openapi/parade-carrier-synchronization-api-openapi.yml
+  - type: Documentation
+    url: https://docs.syndication.parade.ai/
+  - type: Webhooks
+    url: openapi/parade-partner-webhooks-openapi.yaml
+- aid: parade:parade-digital-conversion-api
+  name: Parade Digital Conversion API
+  description: The Digital Conversion API from Parade — 1 operation(s) for digital conversion.
+  humanURL: https://docs.syndication.parade.ai/
+  baseURL: https://api.capacity.parade.ai
+  tags:
+  - Digital Conversion
+  properties:
+  - type: OpenAPI
+    url: openapi/parade-digital-conversion-api-openapi.yml
+  - type: Documentation
+    url: https://docs.syndication.parade.ai/
+  - type: Webhooks
+    url: openapi/parade-partner-webhooks-openapi.yaml
+- aid: parade:parade-load-synchronization-api
+  name: Parade Load Synchronization API
+  description: The Load Synchronization API from Parade — 1 operation(s) for load synchronization.
+  humanURL: https://docs.syndication.parade.ai/
+  baseURL: https://api.capacity.parade.ai
+  tags:
+  - Load Synchronization
+  properties:
+  - type: OpenAPI
+    url: openapi/parade-load-synchronization-api-openapi.yml
+  - type: Documentation
+    url: https://docs.syndication.parade.ai/
+  - type: Webhooks
+    url: openapi/parade-partner-webhooks-openapi.yaml
+- aid: parade:parade-quotes-api
+  name: Parade Quotes API
+  description: The Quotes API from Parade — 3 operation(s) for quotes.
+  humanURL: https://docs.syndication.parade.ai/
+  baseURL: https://api.capacity.parade.ai
+  tags:
+  - Quotes
+  properties:
+  - type: OpenAPI
+    url: openapi/parade-quotes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.syndication.parade.ai/
+  - type: Webhooks
+    url: openapi/parade-partner-webhooks-openapi.yaml
+- aid: parade:parade-search-api
+  name: Parade Search API
+  description: The Search API from Parade — 1 operation(s) for search.
+  humanURL: https://docs.syndication.parade.ai/
+  baseURL: https://api.capacity.parade.ai
+  tags:
+  - Search
+  properties:
+  - type: OpenAPI
+    url: openapi/parade-search-api-openapi.yml
+  - type: Documentation
+    url: https://docs.syndication.parade.ai/
+  - type: Webhooks
+    url: openapi/parade-partner-webhooks-openapi.yaml
 common:
 - type: Website
   url: https://parade.ai
+- type: DeveloperPortal
+  url: https://docs.syndication.parade.ai/
+- type: Documentation
+  url: https://docs.syndication.parade.ai/
+- type: APIReference
+  url: https://docs.syndication.parade.ai/
+- type: Blog
+  url: https://blog.parade.ai/
+- type: SignUp
+  url: https://app.parade.ai
+- type: TermsOfService
+  url: https://www.iubenda.com/terms-and-conditions/86638042
+- type: PrivacyPolicy
+  url: https://www.parade.ai/privacy-policy
+- type: Authentication
+  url: authentication/parade-authentication.yml
+- type: Conventions
+  url: conventions/parade-conventions.yml
+- type: ErrorCatalog
+  url: errors/parade-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/parade-lifecycle.yml
+- type: DataModel
+  url: data-model/parade-data-model.yml
+- type: Conformance
+  url: conformance/parade-conformance.yml
+- type: Sandbox
+  url: sandbox/parade-sandbox.yml
+- type: Webhooks
+  url: openapi/parade-partner-webhooks-openapi.yaml
+- type: MCPServer
+  url: mcp/parade-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/parade-llms.txt
+- type: Overlay
+  url: overlays/parade-digital-transactions-overlay.yaml
+- type: AgenticAccess
+  url: agentic-access/parade-agentic-access.yml
+- type: DomainSecurity
+  url: security/parade-domain-security.yml
+x-enrichment:
+  date: '2026-07-20'
+  status: enriched
+  artifacts_added: 20
+  pass: local-v1

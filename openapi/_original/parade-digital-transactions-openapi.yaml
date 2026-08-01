@@ -1,0 +1,1219 @@
+openapi: 3.0.0
+servers:
+- url: https://api.capacity.stage.parade.ai
+info:
+  title: Parade Transactions API
+  description: Parade's APIs available for digital transactions
+  contact:
+    email: eng@parade.ai
+    name: Parade Eng Team
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.1.0
+security:
+- tokenAuth: []
+paths:
+  /ls/syndication/quote:
+    post:
+      operationId: add_quote
+      tags:
+      - Quotes
+      summary: Post your quotes here
+      description: "Post your quotes here.\n\nEach time a quote is created, we will display the carrier\
+        \ quote on our broker portal and also notify the broker via e-email.     \nA carrier may quote\
+        \ multiple times through this endpoint, but please note that each time the broker will be notified.\n\
+        \nIf a carrier is disqualified for this broker or marked as no dispatch, the broker may not receive\
+        \ this notification.\n"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Quote'
+      responses:
+        '201':
+          description: 'Quote created
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteCreationResponse'
+        '400':
+          description: 'Invalid input, object invalid
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quote400ErrorResponse'
+        '401':
+          description: 'Invalid authentication
+
+            '
+        '404':
+          description: 'Load not found
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quote404ErrorResponse'
+        '406':
+          description: 'Carrier disqualified: the carrier was disabled by the broker. The carrier should
+            follow the broker''s onboarding link or reach out to the broker directly.
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quote406ErrorResponse'
+        '410':
+          description: 'Load no longer available/valid
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quote410ErrorResponse'
+        '500':
+          description: 'Service error, please notify eng@parade.ai
+
+            '
+        '504':
+          description: 'Service unavailable, please retry later
+
+            '
+  /ls/syndication/quote/{quote_id}:
+    get:
+      operationId: get_quote
+      tags:
+      - Quotes
+      summary: Retrieve Quote
+      description: Retrieve information about a created quote
+      parameters:
+      - in: path
+        name: quote_id
+        required: true
+        schema:
+          type: integer
+        description: Quote ID that you are retrieving
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteStatus'
+        '400':
+          description: 'Invalid input, object invalid
+
+            '
+        '401':
+          description: 'Invalid authentication
+
+            '
+        '404':
+          description: 'Load not found
+
+            '
+        '410':
+          description: 'Load no longer available/valid
+
+            '
+        '500':
+          description: 'Service error, please notify eng@parade.ai
+
+            '
+        '504':
+          description: 'Service unavailable, please retry later
+
+            '
+  /ls/syndication/quote/{quote_id}/cancel:
+    post:
+      operationId: cancel_quote
+      tags:
+      - Quotes
+      summary: Cancels a Quote
+      description: 'Cancels/expires a quote that hasn''t been accepted yet. A canceled quote is still
+        shown to the broker but cannot be automatically booked.
+
+
+        If the quote was already accepted, please use the Reservation `/drop` endpoint to cancel the reservation.
+
+        '
+      parameters:
+      - in: path
+        name: quote_id
+        required: true
+        schema:
+          type: integer
+        description: Quote ID that you are canceling
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cancel'
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteStatus'
+        '400':
+          description: 'Invalid input, object invalid
+
+            '
+        '401':
+          description: 'Invalid authentication
+
+            '
+        '404':
+          description: 'Quote not found
+
+            '
+        '410':
+          description: 'Quote was already expired or accepted. If it was accepted, you can still cancel
+            the reservation using the drop endpoint
+
+            '
+        '500':
+          description: 'Service error, please notify eng@parade.ai
+
+            '
+        '504':
+          description: 'Service unavailable, please retry later
+
+            '
+  /ls/syndication/book:
+    post:
+      operationId: book_now
+      tags:
+      - Bookings
+      summary: Post your bookings here
+      description: "Post your bookings here. \n\nEvery time a Book Now happens, one of 3 things may happen:\n\
+        \n- If we are API integrated back to the broker TMS (80%+ of the time), the book endpoint will\
+        \ ping the broker TMS \n  when your request is made and return a response code immediately, with\
+        \ a 201 if the booking was successful. \n\n- If the broker is not API integrated, we either need\
+        \ to run an asynchronous RPA or have the broker manually complete the booking, which can take\
+        \ up to 30 minutes.\n  If you want to set up a webhook to receive booking confirmation events\
+        \ via a webhook, please take a look at the Booking Confirmation Webhook documentation.\n"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Booking'
+      responses:
+        '201':
+          description: 'Booking created and accepted
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookingCreatedResponse'
+        '202':
+          description: 'Booking received, but still being processed
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookingPendingBrokerResponse'
+        '400':
+          description: 'Invalid input, object invalid
+
+            '
+        '401':
+          description: 'Invalid authentication
+
+            '
+        '404':
+          description: 'Load not found or Company not found (see error message)
+
+            '
+        '410':
+          description: 'Load no longer available or Offer is no longer valid (see error message)
+
+            '
+        '500':
+          description: 'Service error, please notify Parade through our partner Slack or eng@parade.ai
+
+            '
+        '504':
+          description: 'Service unavailable, please retry later
+
+            '
+  /ls/syndication/book/{reservation_id}:
+    get:
+      operationId: get_booking
+      tags:
+      - Bookings
+      summary: Retrieve Booking
+      description: Retrieve information about a created booking
+      parameters:
+      - in: path
+        name: reservation_id
+        required: true
+        schema:
+          type: integer
+        description: Reservation ID that you are retrieving
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookingStatus'
+        '400':
+          description: 'Invalid input, object invalid
+
+            '
+        '401':
+          description: 'Invalid authentication
+
+            '
+        '404':
+          description: 'Booking not found
+
+            '
+        '410':
+          description: 'Booking no longer available/valid
+
+            '
+        '500':
+          description: 'Service error, please notify eng@parade.ai
+
+            '
+        '504':
+          description: 'Service unavailable, please retry later
+
+            '
+  /ls/syndication/loads/{external_posting_id}:
+    get:
+      operationId: get_load
+      tags:
+      - Load Synchronization
+      summary: 'Fetch updated info about a Load and it''s allowed actions here
+
+        '
+      description: 'Fetch updated info about a Load and it''s allowed actions here
+
+        '
+      parameters:
+      - name: external_posting_id
+        in: path
+        description: Unique `external_posting_id` of the Load that is being fetched
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: identifier
+      - name: dot_number
+        in: query
+        description: DOT number of carrier that is trying to view/perform actions on this Load
+        required: true
+        schema:
+          type: string
+          format: identifier
+        example: '123123'
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Load'
+        '400':
+          description: 'Invalid parameters
+
+            '
+        '401':
+          description: 'Invalid authentication
+
+            '
+        '404':
+          description: 'Posting matching this id not found. ID may be incorrect or posting was deleted
+
+            '
+        '410':
+          description: 'Load no longer available/valid
+
+            '
+        '500':
+          description: 'Service error, please notify Parade through our partner Slack or eng@parade.ai
+
+            '
+        '504':
+          description: 'Service unavailable, please retry later
+
+            '
+  /ls/syndication/post-truck:
+    post:
+      operationId: add_truck
+      tags:
+      - Available Trucks
+      summary: Post your Available Trucks here
+      description: "Post your Available Trucks here. \n\nThis will be matched to our broker's loads, and\
+        \ they will be able to view your trucks in the Parade broker portal.\n\nThe carrier may also receive\
+        \ matched loads via an email response from Parade if the broker has this feature enabled.\n"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostedTruck'
+      responses:
+        '201':
+          description: 'Posted truck created
+
+            '
+        '400':
+          description: 'Invalid input, object invalid
+
+            '
+        '401':
+          description: 'Invalid authentication
+
+            '
+        '404':
+          description: '`broker_external_key` matching customer not found
+
+            '
+        '500':
+          description: 'Service error, please notify Parade through our partner Slack or eng@parade.ai
+
+            '
+        '504':
+          description: 'Service unavailable, please retry later
+
+            '
+  /d/carriers/{dot_number}/onboarding-status:
+    get:
+      operationId: get_carrier
+      tags:
+      - Carrier Onboarding Status
+      summary: Get the onboarding status of a carrier
+      description: 'Given the DOT number and the broker external key, we can share the current onboarding
+        status for that carrier.
+
+        '
+      parameters:
+      - in: path
+        name: dot_number
+        required: true
+        schema:
+          type: string
+          format: identifier
+        description: DOT number of the carrier being looked up
+      - in: query
+        name: company_external_key
+        required: true
+        schema:
+          type: string
+          format: identifier
+        description: External key of the broker that this carrier belongs to
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CarrierOnboardingStatus'
+        '400':
+          description: 'Invalid parameters
+
+            '
+        '401':
+          description: 'Invalid authentication
+
+            '
+        '404':
+          description: 'Carrier matching this id not found. ID may be incorrect.
+
+            '
+        '500':
+          description: 'Service error, please notify Parade through our partner Slack or eng@parade.ai
+
+            '
+        '504':
+          description: 'Service unavailable, please retry later
+
+            '
+  /d/carriers-by-mc/{mc_number}/onboarding-status:
+    get:
+      operationId: get_carrier_by_mc
+      tags:
+      - Carrier Onboarding Status
+      summary: Get the onboarding status of a carrier with a MC Number
+      description: 'Given the MC number and the broker external key, we can share the current onboarding
+        status for that carrier.
+
+        '
+      parameters:
+      - in: path
+        name: mc_number
+        required: true
+        schema:
+          type: string
+          format: identifier
+        description: MC number of the carrier being looked up
+      - in: query
+        name: company_external_key
+        required: true
+        schema:
+          type: string
+          format: identifier
+        description: External key of the broker that this carrier belongs to
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CarrierOnboardingStatus'
+        '400':
+          description: 'Invalid parameters
+
+            '
+        '401':
+          description: 'Invalid authentication
+
+            '
+        '404':
+          description: 'Carrier matching this id not found. ID may be incorrect.
+
+            '
+        '500':
+          description: 'Service error, please notify Parade through our partner Slack or eng@parade.ai
+
+            '
+        '504':
+          description: 'Service unavailable, please retry later
+
+            '
+  /ls/syndication/drop:
+    post:
+      operationId: drop_load
+      tags:
+      - Bookings
+      summary: 'Cancels a carrier booking.
+
+        '
+      description: "This view is called by syndication partners that have previously reserved a load.\n\
+        \nThe process cancels the reservation and puts it in an abandoned status, because the carrier\
+        \ “dropped” the load.    \nThe carrier needs to be the one that previously reserved the load,\
+        \ otherwise an error will be returned.\n\nIf you need to cancel a Quote that hasn't been accepted\
+        \ yet, please use the Quote `/cancel` endpoint.\n"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Drop'
+      responses:
+        '201':
+          description: success
+        '400':
+          description: 'Invalid input, object invalid
+
+            '
+        '401':
+          description: 'Invalid authentication
+
+            '
+        '404':
+          description: 'Load matching this id not found or the carrier information doesn''t match the
+            load reservation/offer.
+
+            '
+        '500':
+          description: 'Service error, please notify Parade through our partner Slack or eng@parade.ai
+
+            '
+        '504':
+          description: 'Service unavailable, please retry later
+
+            '
+components:
+  securitySchemes:
+    tokenAuth:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: Contact us to get an authorization token
+  schemas:
+    Quote:
+      type: object
+      required:
+      - carrier_dot_number
+      - carrier_email
+      - carrier_name
+      - carrier_phone_number
+      - company_external_key
+      - external_posting_id
+      - quote_amount
+      properties:
+        carrier_name:
+          type: string
+          example: Bob's Trucking
+        carrier_dot_number:
+          type: string
+          example: '23123123'
+        carrier_mc_number:
+          type: string
+          example: '13122'
+        carrier_email:
+          type: string
+          example: test@parade.ai
+        carrier_phone_number:
+          type: string
+          example: 510-022-0222
+        company_external_key:
+          type: string
+          example: reed
+        external_posting_id:
+          type: string
+          format: identifier
+          example: A100B4
+          description: Unique internal ID for this load posting. Do not display this to carriers.
+        load_reference_id:
+          type: string
+          example: R131232
+        quote_amount:
+          type: string
+          example: '680.00'
+    QuoteCreationResponse:
+      type: object
+      required:
+      - id
+      - message
+      properties:
+        id:
+          type: integer
+          example: 1341
+          description: Unique Parade ID for this quote.
+        message:
+          type: string
+          example: quote created
+          description: Message indicating the status of the quote creation.
+    Quote400ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
+          example: WrongMcOrDotNumberError
+          description: Error message indicating the failure
+    Quote404ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
+          example: Load not found
+          description: Error message indicating the failure
+    Quote406ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
+          example: Carrier disqualified
+          description: Error message indicating the failure
+    Quote410ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
+          example: Load is no longer available
+          description: Error message indicating the failure
+    QuoteStatus:
+      type: object
+      required:
+      - load_id
+      - quote_id
+      - quote_amount
+      - created_at
+      - dot_number
+      - broker_external_key
+      - acceptance_status
+      properties:
+        load_id:
+          type: string
+          example: A12123
+          description: Reference number of the load
+        quote_id:
+          type: integer
+          description: Unique ID of the Quote
+        quote_amount:
+          type: number
+          description: Total quote amount in USD
+        created_at:
+          type: string
+          description: When this quote was created
+        dot_number:
+          type: string
+          description: DOT number of the carrier
+        mc_number:
+          type: string
+          description: MC number of the carrier
+        central_dispatch_email:
+          type: string
+          description: Contact email of the carrier who quoted
+        central_dispatch_phone:
+          type: string
+          description: Contact phone of the carrier who quoted
+        broker_external_key:
+          type: string
+          description: Unique key identifying the broker
+        acceptance_status:
+          type: string
+          enum:
+          - Conflict
+          - Confirm
+          - Needs Action
+        expired_at:
+          type: string
+          description: When the quote was expired
+    Cancel:
+      type: object
+      properties:
+        reason:
+          type: string
+          description: Optional reason for the quote cancellation
+    Booking:
+      type: object
+      required:
+      - carrier_dot_number
+      - carrier_email
+      - carrier_name
+      - carrier_phone_number
+      - company_external_key
+      - load_reference_id
+      - offer_external_key
+      properties:
+        carrier_name:
+          type: string
+          example: Bob's Trucking
+        carrier_dot_number:
+          type: string
+          example: '23123123'
+        carrier_mc_number:
+          type: string
+          example: '13122'
+        carrier_email:
+          type: string
+          example: test@parade.ai
+        carrier_phone_number:
+          type: string
+          example: 510-022-0222
+        company_external_key:
+          type: string
+          example: reed
+        load_reference_id:
+          type: string
+          example: R131232
+        offer_external_key:
+          type: string
+          description: Used to validate if the rate offered to the carrier is still valid
+          example: 32o847o8234
+        offer_rate:
+          type: number
+          description: In some cases we allow the API to provide an alternative rate. Providing `offer_rate`
+            makes `offer_external_key` optional. Reach out to us if you want to enable this functionality.
+          example: 1000
+    BookingCreatedResponse:
+      type: object
+      required:
+      - id
+      - message
+      properties:
+        id:
+          type: integer
+          example: 1341
+          description: Unique Parade ID for this booking/reservation.
+        message:
+          type: string
+          example: Successfully booked over API
+          description: Message indicating the status of the booking/reservation creation.
+    BookingPendingBrokerResponse:
+      type: object
+      required:
+      - id
+      - message
+      properties:
+        id:
+          type: integer
+          example: 1341
+          description: Unique Parade ID for this booking/reservation.
+        message:
+          type: string
+          example: Successfully booked but pending broker assignment
+          description: Message indicating the status of the booking/reservation creation.
+    BookingStatus:
+      type: object
+      required:
+      - load_id
+      - reservation_id
+      - all_in_rate
+      - created_at
+      - dot_number
+      - broker_external_key
+      - acceptance_status
+      properties:
+        load_id:
+          type: string
+          example: A12123
+          description: Reference number of the load
+        reservation_id:
+          type: integer
+          description: Unique ID of the Booking
+        all_in_rate:
+          type: number
+          description: Total booking amount in USD
+        created_at:
+          type: string
+          description: When this booking was created
+        dot_number:
+          type: string
+          description: DOT number of the carrier
+        mc_number:
+          type: string
+          description: MC number of the carrier
+        carrier_email:
+          type: string
+          description: Contact email of the carrier who booked
+        carrier_name:
+          type: string
+          description: Name of the carrier who booked
+        rate_confirmation_email:
+          type: string
+          description: The carrier email that will receive the rate confirmation email
+        notified_email:
+          type: string
+          description: The broker email that got notified of this booking
+        notified_name:
+          type: string
+          description: The name of the broker rep who got notified
+        broker_external_key:
+          type: string
+          description: Unique key identifying the broker
+        acceptance_status:
+          type: string
+          enum:
+          - Conflict
+          - Confirm
+          - Needs Action
+    Load:
+      required:
+      - booking_link
+      - company_external_key
+      - reference_id
+      - stops
+      - visibility
+      type: object
+      properties:
+        reference_id:
+          type: string
+          format: identifier
+          example: A12123
+          description: 'This is the ID used for communication on the load between the carrier and broker.
+
+
+            This is unique per broker, but not unique across all brokers.
+
+            '
+        created_at:
+          type: string
+          format: date-time
+          example: 2020-01-01T00:00
+        updated_at:
+          type: string
+          format: date-time
+          example: 2020-01-01T00:00
+        external_posting_id:
+          type: string
+          format: identifier
+          example: A100B4
+          description: Unique internal ID for this load posting. Do not display this to carriers.
+        visibility:
+          deprecated: true
+          type: string
+          example: ALL
+          description: Deprecated field, please ignore.
+          enum:
+          - ALL
+        company_external_key:
+          type: string
+          format: identifier
+          example: reed
+          description: This is a unique identifier for every broker
+        company_name:
+          type: string
+          example: ReedTMS
+          description: Name of the broker
+        company_dot_number:
+          type: string
+          format: identifier
+          example: '123123123'
+          description: DOT number of the broker
+        company_mc_number:
+          type: string
+          example: '123123'
+          description: MC number of the broker
+        booking_link:
+          type: string
+          example: https://load.app/reed/1232132
+          description: Link that brings the carrier to the Parade booking page.
+        stops:
+          type: array
+          items:
+            $ref: '#/components/schemas/Stop'
+        bookable:
+          type: boolean
+          description: 'If this field is true and there is an offer_rate, the load is Book Now enabled.
+
+            '
+        offer_rate:
+          type: number
+          format: decimal
+          example: 2000
+          description: 'If this field exists and bookable is true, you can consider the load to be Book
+            Now enabled.
+
+            '
+        offer_external_key:
+          type: string
+          example: '123123213'
+          description: A hash of the offer_rate + other variables
+        equipment:
+          type: string
+          example: 53ft Van
+          description: Human readable equipment string. Prefer displaying this over parsing `equipment_metadata`.
+        equipment_metadata:
+          $ref: '#/components/schemas/EquipmentMetadata'
+          example: '{"TRAILER_TYPE: {"VAN": true}, {"EXTRAS": {"LENGTH": 53}}}'
+          description: "Normalized equipment dictionary containing all trailer types and extras from the\
+            \ `equipment` string.\n\nWhile a best effort is made to properly translate it, it's best practice\
+            \ to show the `equipment` string to users to avoid miscommunication. \n\nFor all possible\
+            \ keys, please refer to https://www.notion.so/parade/Equipment-Metadata-EXTERNAL-f801210627c5487f8940cf02b3a25afd?pvs=4\n"
+        owner_email:
+          deprecated: true
+          type: string
+          description: 'Deprecated, please use contact_email. The broker''s email contact for this load
+            specifically.
+
+            '
+          example: bob@broker.com
+        owner_phone:
+          deprecated: true
+          type: string
+          description: 'Deprecated, please use contact_phone. The broker''''s phone contact for this load
+            specifically.
+
+            '
+          example: '+133321234'
+        weight:
+          type: number
+          description: Weight of the load in pounds
+          example: 4000
+        commodity:
+          type: string
+          example: Logs
+        route_metadata:
+          deprecated: true
+          type: object
+          description: Deprecated, please ignore
+        contact_email:
+          type: string
+          description: 'The broker''s email contact for this load specifically
+
+            '
+          example: bob@broker.com
+        contact_phone:
+          type: string
+          description: 'The broker''s phone contact for this load specifically
+
+            '
+          example: '+133321234'
+        distance:
+          type: number
+          example: 612.52
+          description: Distance of the route in miles
+        display_metadata:
+          description: "Key/value dictionary with additional load information. \n\nPlease display these\
+            \ on every load, typically mapped to your comments or additional information field.\n"
+          type: object
+          example:
+            TARPS: required
+            Additional comments: Don't be late!
+        allowed_actions:
+          type: array
+          description: "This field should only used be used if you are using the individual load lookup\
+            \ by DOT number, which will tell you what that specific carrier DOT is able to do on this\
+            \ load. \n\nWhen fetching the list of loads, this will only show Quote by default, and you\
+            \ should use the `bookable` flag and `offer_rate` to determine Book Now eligibility.\n"
+          items:
+            type: string
+            enum:
+            - quote
+            - book
+          example:
+          - quote
+          - book
+    PostedTruck:
+      type: object
+      required:
+      - dot_number
+      - carrier_contact_email
+      - carrier_contact_phone
+      - equipment
+      - src_city
+      - src_state
+      - src_available_date
+      - src_available_time
+      - external_id
+      properties:
+        dot_number:
+          type: string
+          example: '23123123'
+          format: identifier
+          description: DOT number of the carrier. We will update posted trucks based off the dot_number
+            + external_id combo.
+        external_id:
+          type: string
+          format: identifier
+          example: '1231232'
+          description: 'Unique identifier for this available truck move.
+
+
+            Recommended to use tractor ID + move ID. Can just be tractor ID depending on your configuration.
+
+
+            We will update posted trucks based off the dot_number + external_id combo.
+
+            '
+        tractor_id:
+          type: string
+          format: identifier
+          example: '1231232'
+          description: Tractor ID for this truck.
+        carrier_contact_email:
+          type: string
+          format: email
+          example: test@parade.ai
+          description: The email of the carrier's dispatcher
+        carrier_contact_phone:
+          type: string
+          example: 510-022-0222
+          description: The phone number of the carrier's dispatcher
+        broker_external_key:
+          type: string
+          example: reed
+          description: 'The external key corresponding to the broker, if you only want to post to one
+            broker.
+
+
+            It not sent, null, or blank, this truck will be posted to all brokers with this integration
+            enabled.
+
+            '
+        equipment:
+          type: string
+          example: Van
+          description: 'The equipment string corresponding to the truck type. Must use Parade''s standard
+            equipment strings.
+
+            '
+        src_city:
+          type: string
+          example: Los Angeles
+          description: City where the truck is available
+        src_state:
+          type: string
+          example: TX
+          description: State where the truck is available
+        expired_at:
+          type: string
+          format: date-time
+          example: 2020-01-01T00:00
+          description: 'When this truck is no longer available, an isoformat string in UTC. Must be after
+            src_available_date + src_available_time
+
+            '
+        src_available_date:
+          type: string
+          format: date
+          example: '2020-08-01'
+          description: Day this truck is initially available
+        src_available_time:
+          type: string
+          format: time
+          example: '23:00'
+          description: 'Time of day this truck is initially available, in UTC
+
+            '
+        destinations:
+          type: array
+          example:
+          - Los Angeles, CA
+          - Midwest
+          - TX
+          description: List of destination strings where the truck wants to go
+    Drop:
+      type: object
+      required:
+      - load_reference_id
+      - carrier_name
+      - carrier_dot_number
+      - company_external_key
+      - reason_message
+      properties:
+        load_reference_id:
+          type: string
+          example: R131232
+        carrier_name:
+          type: string
+          example: Bob's Trucking
+        carrier_dot_number:
+          type: string
+          example: '23123123'
+          maxLength: 15
+        carrier_mc_number:
+          type: string
+          example: '13122'
+        carrier_email:
+          type: string
+          example: test@parade.ai
+        carrier_user_contact_name:
+          type: string
+          example: Bob
+        company_external_key:
+          type: string
+          example: reed
+        offer_external_key:
+          type: string
+          example: 32o847o8234
+        reason_message:
+          type: string
+          example: Too Heavy
+    CarrierOnboardingStatus:
+      type: object
+      required:
+      - dot_number
+      - enable_quotes
+      - enable_reservations
+      - enabled_for_parade
+      properties:
+        dot_number:
+          type: string
+          example: A12123
+          description: The DOT number of the carrier
+        enable_quotes:
+          type: boolean
+          description: Determines whether or not a carrier can quote.
+        enable_reservations:
+          type: boolean
+          description: 'If both `enabled_for_parade` and this flag are true, the carrier can digitally
+            book.
+
+            '
+        enabled_for_parade:
+          type: boolean
+          description: Determines if the broker has onboarded this carrier already.
+        carrier_onboarding_link:
+          type: string
+          format: url
+          description: 'If the broker is able to share an onboarding link, this is where the carrier should
+            go to be onboarded.
+
+            '
+        onboarded_emails:
+          type: array
+          example:
+          - carrier1@carrier.com
+          - otheronboardedcarrier@carrier.com
+          description: These are all the emails that the broker currently has onboarded for the carrier.
+    EquipmentMetadata:
+      type: object
+      description: 'For all possible equipment metadata keys, please refer to https://www.notion.so/parade/Equipment-Metadata-EXTERNAL-f801210627c5487f8940cf02b3a25afd?pvs=4
+
+        '
+      properties:
+        TRAILER_TYPE:
+          type: object
+          example:
+            TRAILER_TYPE:
+              VAN: true
+          description: Key value pairings indicating all valid equipment trailer types
+        EXTRAS:
+          type: object
+          example:
+            EXTRAS:
+              LENGTH: 53
+              TEAM: true
+          description: Key value pairings indicating all other extras and accessorials
+    Stop:
+      type: object
+      required:
+      - city
+      - state
+      - stop_type
+      properties:
+        city:
+          type: string
+          example: Los Angeles
+        state:
+          type: string
+          example: CA
+        stop_type:
+          type: string
+          example: P
+          description: P is a pick, D is a drop
+          enum:
+          - P
+          - D
+        stop_num:
+          type: integer
+          example: 1
+        postal_code:
+          type: string
+          example: '94158'
+        date:
+          type: string
+          format: date
+          description: The date for pickup/delivery activity
+          example: '2020-01-01'
+        appt_time:
+          type: string
+          format: time
+          description: Appointment time
+          example: 07:00:00
+        appt_inst:
+          type: string
+          description: Appointment instructions
+          example: Text when ready
+        early_time:
+          type: string
+          format: time
+          description: Earliest pickup time
+          example: 07:00:00
+        late_time:
+          type: string
+          format: time
+          description: Latest pickup time
+          example: 08:00:00
+        strt_address_1:
+          type: string
+          description: Street Address (First line). Most brokers suppress this data.
+          example: 1010 sesame street
+        strt_address_2:
+          type: string
+          description: Street Address (Second line). Most brokers suppress this data.
+          example: ASK BROKER

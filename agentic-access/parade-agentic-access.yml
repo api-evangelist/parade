@@ -1,0 +1,189 @@
+generated: '2026-07-20'
+method: generated
+source: openapi/parade-digital-transactions-openapi.yaml, openapi/parade-load-sync-openapi.yaml,
+  openapi/parade-partner-webhooks-openapi.yaml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 13
+  by_action_class:
+    acting: 7
+    connected: 6
+  by_consequence:
+    write: 7
+    read: 6
+  human_in_the_loop_required: 0
+operations:
+- path: /ls/syndication/quote
+  method: post
+  operationId: add_quote
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /ls/syndication/quote/{quote_id}
+  method: get
+  operationId: get_quote
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /ls/syndication/quote/{quote_id}/cancel
+  method: post
+  operationId: cancel_quote
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /ls/syndication/book
+  method: post
+  operationId: book_now
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /ls/syndication/book/{reservation_id}
+  method: get
+  operationId: get_booking
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /ls/syndication/loads/{external_posting_id}
+  method: get
+  operationId: get_load
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /ls/syndication/post-truck
+  method: post
+  operationId: add_truck
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /d/carriers/{dot_number}/onboarding-status
+  method: get
+  operationId: get_carrier
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /d/carriers-by-mc/{mc_number}/onboarding-status
+  method: get
+  operationId: get_carrier_by_mc
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /ls/syndication/drop
+  method: post
+  operationId: drop_load
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /syndication/loads
+  method: get
+  operationId: search_loads
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /your-digital-conversion-notification-webhook
+  method: post
+  operationId: digital_conversion_webhook
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /your-carrier-sync-webhook
+  method: post
+  operationId: carrier_sync_webhook
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required

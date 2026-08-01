@@ -1,0 +1,28 @@
+{
+  "provider": "parade",
+  "sources": [
+    "parade-available-trucks-api-openapi.yml",
+    "parade-bookings-api-openapi.yml",
+    "parade-carrier-onboarding-status-api-openapi.yml",
+    "parade-carrier-synchronization-api-openapi.yml",
+    "parade-digital-conversion-api-openapi.yml",
+    "parade-load-synchronization-api-openapi.yml",
+    "parade-quotes-api-openapi.yml",
+    "parade-search-api-openapi.yml"
+  ],
+  "outputs": [
+    "parade-available-trucks-api-openapi.yml",
+    "parade-bookings-api-openapi.yml",
+    "parade-carrier-onboarding-status-api-openapi.yml",
+    "parade-carrier-synchronization-api-openapi.yml",
+    "parade-digital-conversion-api-openapi.yml",
+    "parade-load-synchronization-api-openapi.yml",
+    "parade-quotes-api-openapi.yml",
+    "parade-search-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

@@ -1,0 +1,79 @@
+generated: '2026-07-20'
+method: derived
+source: >
+  openapi/parade-digital-transactions-openapi.yaml,
+  openapi/parade-load-sync-openapi.yaml
+description: >
+  Entity-relationship graph derived from the Parade syndication OpenAPI schemas and
+  the id-reference fields that link them. Parade sits between freight brokers (customers)
+  and carriers, syndicating loads and digitally transacting quotes and bookings.
+entities:
+- name: Load
+  schema: Load
+  identifiers: [external_posting_id, reference_id]
+  description: A load posting syndicated by a broker; carries stops, equipment and a booking link.
+- name: Stop
+  schema: Stop
+  description: A pickup or dropoff on a Load.
+- name: EquipmentMetadata
+  schema: EquipmentMetadata
+  description: Equipment requirements/attributes for a Load.
+- name: Quote
+  schema: Quote / QuoteStatus
+  identifiers: [quote_id]
+  description: A carrier's price quote against a Load.
+- name: Booking
+  schema: Booking / BookingStatus
+  identifiers: [reservation_id]
+  description: A carrier reservation (Book Now) against a Load.
+- name: PostedTruck
+  schema: PostedTruck
+  description: Available-truck posting from a carrier, matched to broker loads.
+- name: Carrier
+  schema: CarrierOnboardingStatus
+  identifiers: [dot_number, mc_number]
+  description: A trucking carrier and its onboarding status with a broker.
+- name: Broker
+  identifiers: [company_external_key]
+  description: The freight broker / Parade customer that owns loads and carrier relationships.
+relationships:
+- from: Load
+  to: Stop
+  type: has_many
+  via: stops
+- from: Load
+  to: EquipmentMetadata
+  type: has_one
+  via: equipment
+- from: Load
+  to: Broker
+  type: belongs_to
+  via: company_external_key
+- from: Quote
+  to: Load
+  type: belongs_to
+  via: external_posting_id
+- from: Quote
+  to: Carrier
+  type: belongs_to
+  via: carrier_dot_number
+- from: Booking
+  to: Load
+  type: belongs_to
+  via: external_posting_id
+- from: Booking
+  to: Carrier
+  type: belongs_to
+  via: dot_number
+- from: PostedTruck
+  to: Broker
+  type: belongs_to
+  via: broker_external_key
+- from: CarrierOnboardingStatus
+  to: Carrier
+  type: belongs_to
+  via: dot_number
+- from: CarrierOnboardingStatus
+  to: Broker
+  type: belongs_to
+  via: company_external_key

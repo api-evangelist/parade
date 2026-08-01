@@ -1,0 +1,13 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Parade Syndication Webhooks
+  version: 1.0.0
+extends: openapi/parade-partner-webhooks-openapi.yaml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-source: https://docs.syndication.parade.ai/
+    x-apievangelist-industry: Freight & Logistics
+    x-apievangelist-note: >
+      Partner-side webhook receivers. Endpoint URLs are configured per partner with Parade;
+      the server placeholder (https://your-url) is intentional.

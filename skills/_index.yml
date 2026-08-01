@@ -1,0 +1,12 @@
+generated: '2026-07-20'
+method: generated
+source: openapi/parade-digital-transactions-openapi.yaml, openapi/parade-load-sync-openapi.yaml
+skills:
+- file: parade-quote-and-book-load.md
+  name: Quote and book a freight load
+  api: openapi/parade-digital-transactions-openapi.yaml
+  operations: [search_loads, get_load, add_quote, book_now, get_booking]
+- file: parade-post-truck-and-check-carrier.md
+  name: Post available capacity and check carrier onboarding
+  api: openapi/parade-digital-transactions-openapi.yaml
+  operations: [get_carrier, get_carrier_by_mc, add_truck]
