@@ -62,7 +62,7 @@ apis:
   - type: Documentation
     url: https://docs.syndication.parade.ai/
   - type: Webhooks
-    url: openapi/parade-partner-webhooks-openapi.yaml
+    url: openapi/_original/parade-partner-webhooks-openapi.yaml
 - aid: parade:parade-bookings-api
   name: Parade Bookings API
   description: The Bookings API from Parade — 3 operation(s) for bookings.
@@ -76,7 +76,7 @@ apis:
   - type: Documentation
     url: https://docs.syndication.parade.ai/
   - type: Webhooks
-    url: openapi/parade-partner-webhooks-openapi.yaml
+    url: openapi/_original/parade-partner-webhooks-openapi.yaml
 - aid: parade:parade-carrier-onboarding-status-api
   name: Parade Carrier Onboarding Status API
   description: >-
@@ -91,7 +91,7 @@ apis:
   - type: Documentation
     url: https://docs.syndication.parade.ai/
   - type: Webhooks
-    url: openapi/parade-partner-webhooks-openapi.yaml
+    url: openapi/_original/parade-partner-webhooks-openapi.yaml
 - aid: parade:parade-carrier-synchronization-api
   name: Parade Carrier Synchronization API
   description: >-
@@ -106,7 +106,7 @@ apis:
   - type: Documentation
     url: https://docs.syndication.parade.ai/
   - type: Webhooks
-    url: openapi/parade-partner-webhooks-openapi.yaml
+    url: openapi/_original/parade-partner-webhooks-openapi.yaml
 - aid: parade:parade-digital-conversion-api
   name: Parade Digital Conversion API
   description: The Digital Conversion API from Parade — 1 operation(s) for digital conversion.
@@ -120,7 +120,7 @@ apis:
   - type: Documentation
     url: https://docs.syndication.parade.ai/
   - type: Webhooks
-    url: openapi/parade-partner-webhooks-openapi.yaml
+    url: openapi/_original/parade-partner-webhooks-openapi.yaml
 - aid: parade:parade-load-synchronization-api
   name: Parade Load Synchronization API
   description: The Load Synchronization API from Parade — 1 operation(s) for load synchronization.
@@ -134,7 +134,7 @@ apis:
   - type: Documentation
     url: https://docs.syndication.parade.ai/
   - type: Webhooks
-    url: openapi/parade-partner-webhooks-openapi.yaml
+    url: openapi/_original/parade-partner-webhooks-openapi.yaml
 - aid: parade:parade-quotes-api
   name: Parade Quotes API
   description: The Quotes API from Parade — 3 operation(s) for quotes.
@@ -148,7 +148,7 @@ apis:
   - type: Documentation
     url: https://docs.syndication.parade.ai/
   - type: Webhooks
-    url: openapi/parade-partner-webhooks-openapi.yaml
+    url: openapi/_original/parade-partner-webhooks-openapi.yaml
 - aid: parade:parade-search-api
   name: Parade Search API
   description: The Search API from Parade — 1 operation(s) for search.
@@ -162,7 +162,7 @@ apis:
   - type: Documentation
     url: https://docs.syndication.parade.ai/
   - type: Webhooks
-    url: openapi/parade-partner-webhooks-openapi.yaml
+    url: openapi/_original/parade-partner-webhooks-openapi.yaml
 common:
 - type: Website
   url: https://parade.ai
@@ -195,7 +195,7 @@ common:
 - type: Sandbox
   url: sandbox/parade-sandbox.yml
 - type: Webhooks
-  url: openapi/parade-partner-webhooks-openapi.yaml
+  url: openapi/_original/parade-partner-webhooks-openapi.yaml
 - type: MCPServer
   url: mcp/parade-mcp.yml
 - type: AgentSkill
