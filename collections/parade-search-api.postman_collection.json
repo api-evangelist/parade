@@ -1,0 +1,613 @@
+{
+  "item": [
+    {
+      "id": "bd87f78c-eb12-468c-ad91-01f29fa36621",
+      "name": "Search",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "202f5183-23f3-4611-a745-e7831417e863",
+          "name": "Search for loads here",
+          "request": {
+            "name": "Search for loads here",
+            "description": {
+              "content": "Search for available loads here. We currently do not support filtering based on city or radius, only state.\n\nUsers are recommended to query and paginate to receive all available loads. Use page and limit query string parameters and the returned x-total-count header to paginate.\n\nAny load that is no longer returned by this API should be considered unavailable and removed from third party loadboards.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "syndication",
+                "loads"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "src_date",
+                  "value": "<string>",
+                  "description": "pickup date of load"
+                },
+                {
+                  "disabled": false,
+                  "key": "src_date__gte",
+                  "value": "<string>",
+                  "description": "earliest pickup date of load"
+                },
+                {
+                  "disabled": false,
+                  "key": "src_date__lte",
+                  "value": "<string>",
+                  "description": "latest pickup date of load"
+                },
+                {
+                  "disabled": false,
+                  "key": "dst_date",
+                  "value": "<string>",
+                  "description": "dropoff date of load"
+                },
+                {
+                  "disabled": false,
+                  "key": "dst_date__gte",
+                  "value": "<string>",
+                  "description": "earliest dropoff date of load"
+                },
+                {
+                  "disabled": false,
+                  "key": "dst_date__lte",
+                  "value": "<string>",
+                  "description": "latest dropoff date of load"
+                },
+                {
+                  "disabled": false,
+                  "key": "company_external_key",
+                  "value": "<string>",
+                  "description": "filters on company specific"
+                },
+                {
+                  "disabled": false,
+                  "key": "equipment",
+                  "value": "<string>",
+                  "description": "Equipment of load. Valid filter values are \"Van\", \"Flatbed\", or \"Reefer\".\n\nFilter for multiple equipment types with comma separated values.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "src_state",
+                  "value": "<string>",
+                  "description": "pickup state of load"
+                },
+                {
+                  "disabled": false,
+                  "key": "dst_state",
+                  "value": "<string>",
+                  "description": "destination state of load"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Pagination: Page number to retrieve. Defaults to 1.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Pagination: Number of loads to retrieve per page. Defaults to 2000.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ada91048-647f-41aa-b47e-b7f855fc0fa5",
+              "name": "success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "syndication",
+                    "loads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "src_date",
+                      "value": "2020-01-01"
+                    },
+                    {
+                      "key": "src_date__gte",
+                      "value": "2020-01-01"
+                    },
+                    {
+                      "key": "src_date__lte",
+                      "value": "2020-01-01"
+                    },
+                    {
+                      "key": "dst_date",
+                      "value": "2020-01-01"
+                    },
+                    {
+                      "key": "dst_date__gte",
+                      "value": "2020-01-01"
+                    },
+                    {
+                      "key": "dst_date__lte",
+                      "value": "2020-01-01"
+                    },
+                    {
+                      "key": "company_external_key",
+                      "value": "reed"
+                    },
+                    {
+                      "key": "equipment",
+                      "value": "Van,reefer"
+                    },
+                    {
+                      "key": "src_state",
+                      "value": "TX"
+                    },
+                    {
+                      "key": "dst_state",
+                      "value": "CA"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Total number of records that the current filters would return. Useful for pagination purposes.\n",
+                  "key": "x-total-count",
+                  "value": "556"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"booking_link\": \"https://load.app/reed/1232132\",\n    \"company_external_key\": \"reed\",\n    \"reference_id\": \"A12123\",\n    \"stops\": [\n      {\n        \"city\": \"Los Angeles\",\n        \"state\": \"CA\",\n        \"stop_type\": \"P\",\n        \"stop_num\": 1,\n        \"postal_code\": \"94158\",\n        \"date\": \"2020-01-01\",\n        \"appt_time\": \"07:00:00\",\n        \"appt_inst\": \"Text when ready\",\n        \"early_time\": \"07:00:00\",\n        \"late_time\": \"08:00:00\",\n        \"strt_address_1\": \"1010 sesame street\",\n        \"strt_address_2\": \"ASK BROKER\"\n      },\n      {\n        \"city\": \"Los Angeles\",\n        \"state\": \"CA\",\n        \"stop_type\": \"P\",\n        \"stop_num\": 1,\n        \"postal_code\": \"94158\",\n        \"date\": \"2020-01-01\",\n        \"appt_time\": \"07:00:00\",\n        \"appt_inst\": \"Text when ready\",\n        \"early_time\": \"07:00:00\",\n        \"late_time\": \"08:00:00\",\n        \"strt_address_1\": \"1010 sesame street\",\n        \"strt_address_2\": \"ASK BROKER\"\n      }\n    ],\n    \"visibility\": \"ALL\",\n    \"created_at\": \"2020-01-01T00:00\",\n    \"updated_at\": \"2020-01-01T00:00\",\n    \"external_posting_id\": \"A100B4\",\n    \"company_name\": \"ReedTMS\",\n    \"company_dot_number\": \"123123123\",\n    \"company_mc_number\": \"123123\",\n    \"bookable\": false,\n    \"offer_rate\": 2000,\n    \"offer_external_key\": \"123123213\",\n    \"equipment\": \"53ft Van\",\n    \"equipment_metadata\": {\n      \"TRAILER_TYPE\": {\n        \"TRAILER_TYPE\": {\n          \"VAN\": true\n        }\n      },\n      \"EXTRAS\": {\n        \"EXTRAS\": {\n          \"LENGTH\": 53,\n          \"TEAM\": true\n        }\n      }\n    },\n    \"owner_email\": \"bob@broker.com\",\n    \"owner_phone\": \"+133321234\",\n    \"weight\": 4000,\n    \"commodity\": \"Logs\",\n    \"route_metadata\": {},\n    \"contact_email\": \"bob@broker.com\",\n    \"contact_phone\": \"+133321234\",\n    \"distance\": 612.52,\n    \"display_metadata\": {\n      \"TARPS\": \"required\",\n      \"Additional comments\": \"Don't be late!\"\n    },\n    \"allowed_actions\": [\n      \"quote\",\n      \"book\"\n    ]\n  },\n  {\n    \"booking_link\": \"https://load.app/reed/1232132\",\n    \"company_external_key\": \"reed\",\n    \"reference_id\": \"A12123\",\n    \"stops\": [\n      {\n        \"city\": \"Los Angeles\",\n        \"state\": \"CA\",\n        \"stop_type\": \"P\",\n        \"stop_num\": 1,\n        \"postal_code\": \"94158\",\n        \"date\": \"2020-01-01\",\n        \"appt_time\": \"07:00:00\",\n        \"appt_inst\": \"Text when ready\",\n        \"early_time\": \"07:00:00\",\n        \"late_time\": \"08:00:00\",\n        \"strt_address_1\": \"1010 sesame street\",\n        \"strt_address_2\": \"ASK BROKER\"\n      },\n      {\n        \"city\": \"Los Angeles\",\n        \"state\": \"CA\",\n        \"stop_type\": \"P\",\n        \"stop_num\": 1,\n        \"postal_code\": \"94158\",\n        \"date\": \"2020-01-01\",\n        \"appt_time\": \"07:00:00\",\n        \"appt_inst\": \"Text when ready\",\n        \"early_time\": \"07:00:00\",\n        \"late_time\": \"08:00:00\",\n        \"strt_address_1\": \"1010 sesame street\",\n        \"strt_address_2\": \"ASK BROKER\"\n      }\n    ],\n    \"visibility\": \"ALL\",\n    \"created_at\": \"2020-01-01T00:00\",\n    \"updated_at\": \"2020-01-01T00:00\",\n    \"external_posting_id\": \"A100B4\",\n    \"company_name\": \"ReedTMS\",\n    \"company_dot_number\": \"123123123\",\n    \"company_mc_number\": \"123123\",\n    \"bookable\": true,\n    \"offer_rate\": 2000,\n    \"offer_external_key\": \"123123213\",\n    \"equipment\": \"53ft Van\",\n    \"equipment_metadata\": {\n      \"TRAILER_TYPE\": {\n        \"TRAILER_TYPE\": {\n          \"VAN\": true\n        }\n      },\n      \"EXTRAS\": {\n        \"EXTRAS\": {\n          \"LENGTH\": 53,\n          \"TEAM\": true\n        }\n      }\n    },\n    \"owner_email\": \"bob@broker.com\",\n    \"owner_phone\": \"+133321234\",\n    \"weight\": 4000,\n    \"commodity\": \"Logs\",\n    \"route_metadata\": {},\n    \"contact_email\": \"bob@broker.com\",\n    \"contact_phone\": \"+133321234\",\n    \"distance\": 612.52,\n    \"display_metadata\": {\n      \"TARPS\": \"required\",\n      \"Additional comments\": \"Don't be late!\"\n    },\n    \"allowed_actions\": [\n      \"quote\",\n      \"book\"\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "faf9c69c-b28e-4e5b-960b-79313f0e73a1",
+              "name": "Invalid parameters\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "syndication",
+                    "loads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "src_date",
+                      "value": "2020-01-01"
+                    },
+                    {
+                      "key": "src_date__gte",
+                      "value": "2020-01-01"
+                    },
+                    {
+                      "key": "src_date__lte",
+                      "value": "2020-01-01"
+                    },
+                    {
+                      "key": "dst_date",
+                      "value": "2020-01-01"
+                    },
+                    {
+                      "key": "dst_date__gte",
+                      "value": "2020-01-01"
+                    },
+                    {
+                      "key": "dst_date__lte",
+                      "value": "2020-01-01"
+                    },
+                    {
+                      "key": "company_external_key",
+                      "value": "reed"
+                    },
+                    {
+                      "key": "equipment",
+                      "value": "Van,reefer"
+                    },
+                    {
+                      "key": "src_state",
+                      "value": "TX"
+                    },
+                    {
+                      "key": "dst_state",
+                      "value": "CA"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "de15b42e-5f5e-42f0-a30e-65cef225340e",
+              "name": "Invalid authentication\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "syndication",
+                    "loads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "src_date",
+                      "value": "2020-01-01"
+                    },
+                    {
+                      "key": "src_date__gte",
+                      "value": "2020-01-01"
+                    },
+                    {
+                      "key": "src_date__lte",
+                      "value": "2020-01-01"
+                    },
+                    {
+                      "key": "dst_date",
+                      "value": "2020-01-01"
+                    },
+                    {
+                      "key": "dst_date__gte",
+                      "value": "2020-01-01"
+                    },
+                    {
+                      "key": "dst_date__lte",
+                      "value": "2020-01-01"
+                    },
+                    {
+                      "key": "company_external_key",
+                      "value": "reed"
+                    },
+                    {
+                      "key": "equipment",
+                      "value": "Van,reefer"
+                    },
+                    {
+                      "key": "src_state",
+                      "value": "TX"
+                    },
+                    {
+                      "key": "dst_state",
+                      "value": "CA"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0747baab-8ac5-4cf6-a260-39459cf528e7",
+              "name": "Service error, please notify eng@parade.ai\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "syndication",
+                    "loads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "src_date",
+                      "value": "2020-01-01"
+                    },
+                    {
+                      "key": "src_date__gte",
+                      "value": "2020-01-01"
+                    },
+                    {
+                      "key": "src_date__lte",
+                      "value": "2020-01-01"
+                    },
+                    {
+                      "key": "dst_date",
+                      "value": "2020-01-01"
+                    },
+                    {
+                      "key": "dst_date__gte",
+                      "value": "2020-01-01"
+                    },
+                    {
+                      "key": "dst_date__lte",
+                      "value": "2020-01-01"
+                    },
+                    {
+                      "key": "company_external_key",
+                      "value": "reed"
+                    },
+                    {
+                      "key": "equipment",
+                      "value": "Van,reefer"
+                    },
+                    {
+                      "key": "src_state",
+                      "value": "TX"
+                    },
+                    {
+                      "key": "dst_state",
+                      "value": "CA"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d54d62ef-4162-4334-9b8c-de4cc450e9cd",
+              "name": "Service unavailable, please retry later\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "syndication",
+                    "loads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "src_date",
+                      "value": "2020-01-01"
+                    },
+                    {
+                      "key": "src_date__gte",
+                      "value": "2020-01-01"
+                    },
+                    {
+                      "key": "src_date__lte",
+                      "value": "2020-01-01"
+                    },
+                    {
+                      "key": "dst_date",
+                      "value": "2020-01-01"
+                    },
+                    {
+                      "key": "dst_date__gte",
+                      "value": "2020-01-01"
+                    },
+                    {
+                      "key": "dst_date__lte",
+                      "value": "2020-01-01"
+                    },
+                    {
+                      "key": "company_external_key",
+                      "value": "reed"
+                    },
+                    {
+                      "key": "equipment",
+                      "value": "Van,reefer"
+                    },
+                    {
+                      "key": "src_state",
+                      "value": "TX"
+                    },
+                    {
+                      "key": "dst_state",
+                      "value": "CA"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Gateway Timeout",
+              "code": 504,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.capacity.stage.parade.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6845dffa-b97a-4735-bfca-59689df6c652",
+    "name": "Parade Transactions Available Trucks Search API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Parade's APIs available for digital transactions\n\nContact Support:\n Name: Parade Eng Team\n Email: eng@parade.ai",
+      "type": "text/plain"
+    }
+  }
+}

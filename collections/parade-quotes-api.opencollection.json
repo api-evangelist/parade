@@ -1,0 +1,83 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Parade Transactions Available Trucks Quotes API",
+    "version": "1.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Quotes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Post your quotes here",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.capacity.stage.parade.ai/ls/syndication/quote",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Post your quotes here.\n\nEach time a quote is created, we will display the carrier quote on our broker portal and also notify the broker via e-email.     \nA carrier may quote multiple times through this endpoint, but please note that each time the broker will be notified.\n\nIf a carrier is disqualified for this broker or marked as no dispatch, the broker may not receive this notification.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve Quote",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.capacity.stage.parade.ai/ls/syndication/quote/:quote_id",
+            "params": [
+              {
+                "name": "quote_id",
+                "value": "",
+                "type": "path",
+                "description": "Quote ID that you are retrieving"
+              }
+            ]
+          },
+          "docs": "Retrieve information about a created quote"
+        },
+        {
+          "info": {
+            "name": "Cancels a Quote",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.capacity.stage.parade.ai/ls/syndication/quote/:quote_id/cancel",
+            "params": [
+              {
+                "name": "quote_id",
+                "value": "",
+                "type": "path",
+                "description": "Quote ID that you are canceling"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Cancels/expires a quote that hasn't been accepted yet. A canceled quote is still shown to the broker but cannot be automatically booked.\n\nIf the quote was already accepted, please use the Reservation `/drop` endpoint to cancel the reservation.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Parade Transactions Available Trucks API",
+    "version": "1.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Available Trucks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Post your Available Trucks here",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.capacity.stage.parade.ai/ls/syndication/post-truck",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Post your Available Trucks here. \n\nThis will be matched to our broker's loads, and they will be able to view your trucks in the Parade broker portal.\n\nThe carrier may also receive matched loads via an email response from Parade if the broker has this feature enabled.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

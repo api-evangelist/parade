@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Parade Transactions Available Trucks Digital Conversion API",
+    "version": "1.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Digital Conversion",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Quote and booking conversion notifications",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.capacity.stage.parade.ai/your-digital-conversion-notification-webhook",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set this up if you want to receive quote and booking conversion notifications at a webhook on your end."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

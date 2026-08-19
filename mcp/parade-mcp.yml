@@ -2,8 +2,6 @@ generated: '2026-07-20'
 method: derived
 status: candidate
 source: openapi/parade-digital-transactions-openapi.yaml, openapi/parade-load-sync-openapi.yaml
-# No official hosted/remote Parade MCP server was found. This is a candidate tool list
-# derived one-to-one from the published API operations (partner-side webhooks excluded).
 server:
   name: parade
   transport: http
@@ -41,3 +39,9 @@ tools:
 - name: get_carrier_by_mc
   description: Get carrier onboarding status by MC number.
   source_operation: openapi/parade-digital-transactions-openapi.yaml#get_carrier_by_mc
+deployment:
+  mode: none
+  verified: derived
+  tools: 11
+  checked: '2026-08-12'
+  source: catalog MCP census

@@ -1,0 +1,491 @@
+{
+  "item": [
+    {
+      "id": "6c209ad4-aaba-4eb1-939f-fc4e6f579e65",
+      "name": "Load Synchronization",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8b3cc549-dfb6-475b-b2b8-54e5f6a95240",
+          "name": "Fetch updated info about a Load and it's allowed actions here\n",
+          "request": {
+            "name": "Fetch updated info about a Load and it's allowed actions here\n",
+            "description": {
+              "content": "Fetch updated info about a Load and it's allowed actions here\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ls",
+                "syndication",
+                "loads",
+                ":external_posting_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dot_number",
+                  "value": "<identifier>",
+                  "description": "(Required) DOT number of carrier that is trying to view/perform actions on this Load"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<identifier>",
+                  "key": "external_posting_id",
+                  "description": "(Required) Unique `external_posting_id` of the Load that is being fetched"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "319b6a0c-a1ac-48e9-a36c-0bfa884b0ca9",
+              "name": "success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ls",
+                    "syndication",
+                    "loads",
+                    ":external_posting_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dot_number",
+                      "value": "123123"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<identifier>",
+                      "key": "external_posting_id",
+                      "description": "(Required) Unique `external_posting_id` of the Load that is being fetched"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"booking_link\": \"https://load.app/reed/1232132\",\n  \"company_external_key\": \"reed\",\n  \"reference_id\": \"A12123\",\n  \"stops\": [\n    {\n      \"city\": \"Los Angeles\",\n      \"state\": \"CA\",\n      \"stop_type\": \"P\",\n      \"stop_num\": 1,\n      \"postal_code\": \"94158\",\n      \"date\": \"2020-01-01\",\n      \"appt_time\": \"07:00:00\",\n      \"appt_inst\": \"Text when ready\",\n      \"early_time\": \"07:00:00\",\n      \"late_time\": \"08:00:00\",\n      \"strt_address_1\": \"1010 sesame street\",\n      \"strt_address_2\": \"ASK BROKER\"\n    },\n    {\n      \"city\": \"Los Angeles\",\n      \"state\": \"CA\",\n      \"stop_type\": \"P\",\n      \"stop_num\": 1,\n      \"postal_code\": \"94158\",\n      \"date\": \"2020-01-01\",\n      \"appt_time\": \"07:00:00\",\n      \"appt_inst\": \"Text when ready\",\n      \"early_time\": \"07:00:00\",\n      \"late_time\": \"08:00:00\",\n      \"strt_address_1\": \"1010 sesame street\",\n      \"strt_address_2\": \"ASK BROKER\"\n    }\n  ],\n  \"visibility\": \"ALL\",\n  \"created_at\": \"1958-11-16T09:32:48.834Z\",\n  \"updated_at\": \"2006-05-12T05:02:12.229Z\",\n  \"external_posting_id\": \"A100B4\",\n  \"company_name\": \"ReedTMS\",\n  \"company_dot_number\": \"123123123\",\n  \"company_mc_number\": \"123123\",\n  \"bookable\": true,\n  \"offer_rate\": 2000,\n  \"offer_external_key\": \"123123213\",\n  \"equipment\": \"53ft Van\",\n  \"equipment_metadata\": {\n    \"TRAILER_TYPE\": {\n      \"TRAILER_TYPE\": {\n        \"VAN\": true\n      }\n    },\n    \"EXTRAS\": {\n      \"EXTRAS\": {\n        \"LENGTH\": 53,\n        \"TEAM\": true\n      }\n    }\n  },\n  \"owner_email\": \"bob@broker.com\",\n  \"owner_phone\": \"+133321234\",\n  \"weight\": 4000,\n  \"commodity\": \"Logs\",\n  \"route_metadata\": {},\n  \"contact_email\": \"bob@broker.com\",\n  \"contact_phone\": \"+133321234\",\n  \"distance\": 612.52,\n  \"display_metadata\": {\n    \"TARPS\": \"required\",\n    \"Additional comments\": \"Don't be late!\"\n  },\n  \"allowed_actions\": [\n    \"quote\",\n    \"book\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c66a816-3e88-461d-ba68-0d0691627dde",
+              "name": "Invalid parameters\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ls",
+                    "syndication",
+                    "loads",
+                    ":external_posting_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dot_number",
+                      "value": "123123"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<identifier>",
+                      "key": "external_posting_id",
+                      "description": "(Required) Unique `external_posting_id` of the Load that is being fetched"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1d115ade-3bdc-4c5f-bce1-34820b881215",
+              "name": "Invalid authentication\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ls",
+                    "syndication",
+                    "loads",
+                    ":external_posting_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dot_number",
+                      "value": "123123"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<identifier>",
+                      "key": "external_posting_id",
+                      "description": "(Required) Unique `external_posting_id` of the Load that is being fetched"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "99fce6be-7e1c-484e-8aa8-e4cb2a430637",
+              "name": "Posting matching this id not found. ID may be incorrect or posting was deleted\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ls",
+                    "syndication",
+                    "loads",
+                    ":external_posting_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dot_number",
+                      "value": "123123"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<identifier>",
+                      "key": "external_posting_id",
+                      "description": "(Required) Unique `external_posting_id` of the Load that is being fetched"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f499e8b7-73a2-4d2a-b175-0e40f01303ac",
+              "name": "Load no longer available/valid\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ls",
+                    "syndication",
+                    "loads",
+                    ":external_posting_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dot_number",
+                      "value": "123123"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<identifier>",
+                      "key": "external_posting_id",
+                      "description": "(Required) Unique `external_posting_id` of the Load that is being fetched"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Gone",
+              "code": 410,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bd6d4560-8711-4142-b102-4c0100794acb",
+              "name": "Service error, please notify Parade through our partner Slack or eng@parade.ai\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ls",
+                    "syndication",
+                    "loads",
+                    ":external_posting_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dot_number",
+                      "value": "123123"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<identifier>",
+                      "key": "external_posting_id",
+                      "description": "(Required) Unique `external_posting_id` of the Load that is being fetched"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "eafee0e9-eb37-4ab6-938b-532f547e2467",
+              "name": "Service unavailable, please retry later\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ls",
+                    "syndication",
+                    "loads",
+                    ":external_posting_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dot_number",
+                      "value": "123123"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<identifier>",
+                      "key": "external_posting_id",
+                      "description": "(Required) Unique `external_posting_id` of the Load that is being fetched"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Gateway Timeout",
+              "code": 504,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.capacity.stage.parade.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a5e33df8-072c-4eda-95b3-85b1d1d81fe8",
+    "name": "Parade Transactions Available Trucks Load Synchronization API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Parade's APIs available for digital transactions\n\nContact Support:\n Name: Parade Eng Team\n Email: eng@parade.ai",
+      "type": "text/plain"
+    }
+  }
+}

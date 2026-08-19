@@ -1,0 +1,186 @@
+{
+  "item": [
+    {
+      "id": "ea6c73b8-533d-4c3c-aac6-8a37eb080d26",
+      "name": "Digital Conversion",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a1774722-890b-4e57-a384-f87dd2097b26",
+          "name": "Quote and booking conversion notifications",
+          "request": {
+            "name": "Quote and booking conversion notifications",
+            "description": {
+              "content": "Set this up if you want to receive quote and booking conversion notifications at a webhook on your end.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "your-digital-conversion-notification-webhook"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"update_type\": \"<string>\",\n  \"posting_id\": \"<integer>\",\n  \"company_external_key\": \"<string>\",\n  \"company_name\": \"<string>\",\n  \"dot_number\": \"<string>\",\n  \"load_reference_id\": \"<string>\",\n  \"mc_number\": \"<string>\",\n  \"all_in_rate\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1acf6eac-e3d6-485b-b5a9-8a4b0952cf7c",
+              "name": "notification received",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "your-digital-conversion-notification-webhook"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"update_type\": \"<string>\",\n  \"posting_id\": \"<integer>\",\n  \"company_external_key\": \"<string>\",\n  \"company_name\": \"<string>\",\n  \"dot_number\": \"<string>\",\n  \"load_reference_id\": \"A123123\",\n  \"mc_number\": \"<string>\",\n  \"all_in_rate\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c4e1d646-9a41-419e-a6b9-68c78d6f62a5",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "your-digital-conversion-notification-webhook"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"update_type\": \"<string>\",\n  \"posting_id\": \"<integer>\",\n  \"company_external_key\": \"<string>\",\n  \"company_name\": \"<string>\",\n  \"dot_number\": \"<string>\",\n  \"load_reference_id\": \"A123123\",\n  \"mc_number\": \"<string>\",\n  \"all_in_rate\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.capacity.stage.parade.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "cf18a0b9-8713-4565-830c-d6d44cd77735",
+    "name": "Parade Transactions Available Trucks Digital Conversion API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Parade's APIs available for digital transactions\n\nContact Support:\n Name: Parade Eng Team\n Email: eng@parade.ai",
+      "type": "text/plain"
+    }
+  }
+}

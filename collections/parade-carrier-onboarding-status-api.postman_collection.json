@@ -1,0 +1,823 @@
+{
+  "item": [
+    {
+      "id": "c6889e0d-418c-499b-ad0d-f6db42f085ad",
+      "name": "Carrier Onboarding Status",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c746bb55-5511-4cd6-8cf1-48c052bfb5fb",
+          "name": "Get the onboarding status of a carrier",
+          "request": {
+            "name": "Get the onboarding status of a carrier",
+            "description": {
+              "content": "Given the DOT number and the broker external key, we can share the current onboarding status for that carrier.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "d",
+                "carriers",
+                ":dot_number",
+                "onboarding-status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "company_external_key",
+                  "value": "<identifier>",
+                  "description": "(Required) External key of the broker that this carrier belongs to"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<identifier>",
+                  "key": "dot_number",
+                  "description": "(Required) DOT number of the carrier being looked up"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8379b670-b426-4ba4-a166-ba5d02742f98",
+              "name": "success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "d",
+                    "carriers",
+                    ":dot_number",
+                    "onboarding-status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_external_key",
+                      "value": "<identifier>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<identifier>",
+                      "key": "dot_number",
+                      "description": "(Required) DOT number of the carrier being looked up"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"dot_number\": \"A12123\",\n  \"enable_quotes\": false,\n  \"enable_reservations\": false,\n  \"enabled_for_parade\": true,\n  \"carrier_onboarding_link\": \"string\",\n  \"onboarded_emails\": [\n    \"carrier1@carrier.com\",\n    \"otheronboardedcarrier@carrier.com\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "592d65ac-0c2f-4735-8434-794fe458190a",
+              "name": "Invalid parameters\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "d",
+                    "carriers",
+                    ":dot_number",
+                    "onboarding-status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_external_key",
+                      "value": "<identifier>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<identifier>",
+                      "key": "dot_number",
+                      "description": "(Required) DOT number of the carrier being looked up"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fe35ecf2-f266-46c4-9c81-a887b320f88f",
+              "name": "Invalid authentication\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "d",
+                    "carriers",
+                    ":dot_number",
+                    "onboarding-status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_external_key",
+                      "value": "<identifier>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<identifier>",
+                      "key": "dot_number",
+                      "description": "(Required) DOT number of the carrier being looked up"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c75284c8-8110-4130-ae36-6784a70ecbe6",
+              "name": "Carrier matching this id not found. ID may be incorrect.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "d",
+                    "carriers",
+                    ":dot_number",
+                    "onboarding-status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_external_key",
+                      "value": "<identifier>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<identifier>",
+                      "key": "dot_number",
+                      "description": "(Required) DOT number of the carrier being looked up"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b69f45ee-04e6-4086-89ac-8133909222c4",
+              "name": "Service error, please notify Parade through our partner Slack or eng@parade.ai\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "d",
+                    "carriers",
+                    ":dot_number",
+                    "onboarding-status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_external_key",
+                      "value": "<identifier>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<identifier>",
+                      "key": "dot_number",
+                      "description": "(Required) DOT number of the carrier being looked up"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "416244b1-b851-4ead-8e60-47f3ea3cf7ff",
+              "name": "Service unavailable, please retry later\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "d",
+                    "carriers",
+                    ":dot_number",
+                    "onboarding-status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_external_key",
+                      "value": "<identifier>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<identifier>",
+                      "key": "dot_number",
+                      "description": "(Required) DOT number of the carrier being looked up"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Gateway Timeout",
+              "code": 504,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "79ad9871-9e92-4fab-b53e-38e9598ab2d2",
+          "name": "Get the onboarding status of a carrier with a MC Number",
+          "request": {
+            "name": "Get the onboarding status of a carrier with a MC Number",
+            "description": {
+              "content": "Given the MC number and the broker external key, we can share the current onboarding status for that carrier.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "d",
+                "carriers-by-mc",
+                ":mc_number",
+                "onboarding-status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "company_external_key",
+                  "value": "<identifier>",
+                  "description": "(Required) External key of the broker that this carrier belongs to"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<identifier>",
+                  "key": "mc_number",
+                  "description": "(Required) MC number of the carrier being looked up"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4b2dacde-b582-4334-bec1-28da78beaca1",
+              "name": "success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "d",
+                    "carriers-by-mc",
+                    ":mc_number",
+                    "onboarding-status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_external_key",
+                      "value": "<identifier>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<identifier>",
+                      "key": "mc_number",
+                      "description": "(Required) MC number of the carrier being looked up"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"dot_number\": \"A12123\",\n  \"enable_quotes\": false,\n  \"enable_reservations\": false,\n  \"enabled_for_parade\": true,\n  \"carrier_onboarding_link\": \"string\",\n  \"onboarded_emails\": [\n    \"carrier1@carrier.com\",\n    \"otheronboardedcarrier@carrier.com\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "97dc71f0-1039-4c28-98dc-22a33c5fd6eb",
+              "name": "Invalid parameters\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "d",
+                    "carriers-by-mc",
+                    ":mc_number",
+                    "onboarding-status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_external_key",
+                      "value": "<identifier>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<identifier>",
+                      "key": "mc_number",
+                      "description": "(Required) MC number of the carrier being looked up"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7f60e107-0ec5-4c26-b23e-9a0df1e0802b",
+              "name": "Invalid authentication\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "d",
+                    "carriers-by-mc",
+                    ":mc_number",
+                    "onboarding-status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_external_key",
+                      "value": "<identifier>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<identifier>",
+                      "key": "mc_number",
+                      "description": "(Required) MC number of the carrier being looked up"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "858bf0c8-5715-4cde-a35f-0feb7b89c629",
+              "name": "Carrier matching this id not found. ID may be incorrect.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "d",
+                    "carriers-by-mc",
+                    ":mc_number",
+                    "onboarding-status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_external_key",
+                      "value": "<identifier>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<identifier>",
+                      "key": "mc_number",
+                      "description": "(Required) MC number of the carrier being looked up"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0074c33c-4801-44ae-bc7d-6458fe5f73cb",
+              "name": "Service error, please notify Parade through our partner Slack or eng@parade.ai\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "d",
+                    "carriers-by-mc",
+                    ":mc_number",
+                    "onboarding-status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_external_key",
+                      "value": "<identifier>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<identifier>",
+                      "key": "mc_number",
+                      "description": "(Required) MC number of the carrier being looked up"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7ea4338a-8ad7-44c5-9b98-3bea025c6bdb",
+              "name": "Service unavailable, please retry later\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "d",
+                    "carriers-by-mc",
+                    ":mc_number",
+                    "onboarding-status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_external_key",
+                      "value": "<identifier>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<identifier>",
+                      "key": "mc_number",
+                      "description": "(Required) MC number of the carrier being looked up"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Gateway Timeout",
+              "code": 504,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.capacity.stage.parade.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b5267abb-72c6-44a4-aff3-02443746c3e6",
+    "name": "Parade Transactions Available Trucks Carrier Onboarding Status API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Parade's APIs available for digital transactions\n\nContact Support:\n Name: Parade Eng Team\n Email: eng@parade.ai",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,389 @@
+{
+  "item": [
+    {
+      "id": "b0d0afec-a1d9-4c75-857b-81ff16f143cb",
+      "name": "Available Trucks",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "54ef3a5c-f7cc-4e67-86e7-6c3cc068a71d",
+          "name": "Post your Available Trucks here",
+          "request": {
+            "name": "Post your Available Trucks here",
+            "description": {
+              "content": "Post your Available Trucks here. \n\nThis will be matched to our broker's loads, and they will be able to view your trucks in the Parade broker portal.\n\nThe carrier may also receive matched loads via an email response from Parade if the broker has this feature enabled.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ls",
+                "syndication",
+                "post-truck"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dot_number\": \"<identifier>\",\n  \"carrier_contact_email\": \"<email>\",\n  \"carrier_contact_phone\": \"<string>\",\n  \"equipment\": \"<string>\",\n  \"src_city\": \"<string>\",\n  \"src_state\": \"<string>\",\n  \"src_available_date\": \"<date>\",\n  \"src_available_time\": \"<time>\",\n  \"external_id\": \"<identifier>\",\n  \"tractor_id\": \"<identifier>\",\n  \"broker_external_key\": \"<string>\",\n  \"expired_at\": \"<dateTime>\",\n  \"destinations\": \"<array>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2d13c75b-0716-4342-a422-0598388d05db",
+              "name": "Posted truck created\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ls",
+                    "syndication",
+                    "post-truck"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dot_number\": \"23123123\",\n  \"carrier_contact_email\": \"test@parade.ai\",\n  \"carrier_contact_phone\": \"510-022-0222\",\n  \"equipment\": \"Van\",\n  \"src_city\": \"Los Angeles\",\n  \"src_state\": \"TX\",\n  \"src_available_date\": \"2020-08-01\",\n  \"src_available_time\": \"<time>\",\n  \"external_id\": \"1231232\",\n  \"tractor_id\": \"1231232\",\n  \"broker_external_key\": \"reed\",\n  \"expired_at\": \"<dateTime>\",\n  \"destinations\": [\n    \"Los Angeles, CA\",\n    \"Midwest\",\n    \"TX\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a57f161e-3b2a-4de6-bb0b-bc3f346ab0e6",
+              "name": "Invalid input, object invalid\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ls",
+                    "syndication",
+                    "post-truck"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dot_number\": \"23123123\",\n  \"carrier_contact_email\": \"test@parade.ai\",\n  \"carrier_contact_phone\": \"510-022-0222\",\n  \"equipment\": \"Van\",\n  \"src_city\": \"Los Angeles\",\n  \"src_state\": \"TX\",\n  \"src_available_date\": \"2020-08-01\",\n  \"src_available_time\": \"<time>\",\n  \"external_id\": \"1231232\",\n  \"tractor_id\": \"1231232\",\n  \"broker_external_key\": \"reed\",\n  \"expired_at\": \"<dateTime>\",\n  \"destinations\": [\n    \"Los Angeles, CA\",\n    \"Midwest\",\n    \"TX\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "353971c2-1029-416b-b38a-204fd3ae9b1b",
+              "name": "Invalid authentication\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ls",
+                    "syndication",
+                    "post-truck"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dot_number\": \"23123123\",\n  \"carrier_contact_email\": \"test@parade.ai\",\n  \"carrier_contact_phone\": \"510-022-0222\",\n  \"equipment\": \"Van\",\n  \"src_city\": \"Los Angeles\",\n  \"src_state\": \"TX\",\n  \"src_available_date\": \"2020-08-01\",\n  \"src_available_time\": \"<time>\",\n  \"external_id\": \"1231232\",\n  \"tractor_id\": \"1231232\",\n  \"broker_external_key\": \"reed\",\n  \"expired_at\": \"<dateTime>\",\n  \"destinations\": [\n    \"Los Angeles, CA\",\n    \"Midwest\",\n    \"TX\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b2d4aa1b-eab2-48de-8fe5-0c65003a34b0",
+              "name": "`broker_external_key` matching customer not found\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ls",
+                    "syndication",
+                    "post-truck"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dot_number\": \"23123123\",\n  \"carrier_contact_email\": \"test@parade.ai\",\n  \"carrier_contact_phone\": \"510-022-0222\",\n  \"equipment\": \"Van\",\n  \"src_city\": \"Los Angeles\",\n  \"src_state\": \"TX\",\n  \"src_available_date\": \"2020-08-01\",\n  \"src_available_time\": \"<time>\",\n  \"external_id\": \"1231232\",\n  \"tractor_id\": \"1231232\",\n  \"broker_external_key\": \"reed\",\n  \"expired_at\": \"<dateTime>\",\n  \"destinations\": [\n    \"Los Angeles, CA\",\n    \"Midwest\",\n    \"TX\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "02d704e2-4695-41e9-9b83-c41b595a5b8b",
+              "name": "Service error, please notify Parade through our partner Slack or eng@parade.ai\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ls",
+                    "syndication",
+                    "post-truck"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dot_number\": \"23123123\",\n  \"carrier_contact_email\": \"test@parade.ai\",\n  \"carrier_contact_phone\": \"510-022-0222\",\n  \"equipment\": \"Van\",\n  \"src_city\": \"Los Angeles\",\n  \"src_state\": \"TX\",\n  \"src_available_date\": \"2020-08-01\",\n  \"src_available_time\": \"<time>\",\n  \"external_id\": \"1231232\",\n  \"tractor_id\": \"1231232\",\n  \"broker_external_key\": \"reed\",\n  \"expired_at\": \"<dateTime>\",\n  \"destinations\": [\n    \"Los Angeles, CA\",\n    \"Midwest\",\n    \"TX\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "206e282c-c63b-4255-93bc-93828f301ec5",
+              "name": "Service unavailable, please retry later\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ls",
+                    "syndication",
+                    "post-truck"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dot_number\": \"23123123\",\n  \"carrier_contact_email\": \"test@parade.ai\",\n  \"carrier_contact_phone\": \"510-022-0222\",\n  \"equipment\": \"Van\",\n  \"src_city\": \"Los Angeles\",\n  \"src_state\": \"TX\",\n  \"src_available_date\": \"2020-08-01\",\n  \"src_available_time\": \"<time>\",\n  \"external_id\": \"1231232\",\n  \"tractor_id\": \"1231232\",\n  \"broker_external_key\": \"reed\",\n  \"expired_at\": \"<dateTime>\",\n  \"destinations\": [\n    \"Los Angeles, CA\",\n    \"Midwest\",\n    \"TX\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Gateway Timeout",
+              "code": 504,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.capacity.stage.parade.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d9cee758-4058-42b0-b75d-cec79ac3207d",
+    "name": "Parade Transactions Available Trucks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Parade's APIs available for digital transactions\n\nContact Support:\n Name: Parade Eng Team\n Email: eng@parade.ai",
+      "type": "text/plain"
+    }
+  }
+}

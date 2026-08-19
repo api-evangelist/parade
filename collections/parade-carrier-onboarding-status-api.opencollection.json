@@ -1,0 +1,76 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Parade Transactions Available Trucks Carrier Onboarding Status API",
+    "version": "1.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Carrier Onboarding Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the onboarding status of a carrier",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.capacity.stage.parade.ai/d/carriers/:dot_number/onboarding-status",
+            "params": [
+              {
+                "name": "dot_number",
+                "value": "",
+                "type": "path",
+                "description": "DOT number of the carrier being looked up"
+              },
+              {
+                "name": "company_external_key",
+                "value": "",
+                "type": "query",
+                "description": "External key of the broker that this carrier belongs to"
+              }
+            ]
+          },
+          "docs": "Given the DOT number and the broker external key, we can share the current onboarding status for that carrier.\n"
+        },
+        {
+          "info": {
+            "name": "Get the onboarding status of a carrier with a MC Number",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.capacity.stage.parade.ai/d/carriers-by-mc/:mc_number/onboarding-status",
+            "params": [
+              {
+                "name": "mc_number",
+                "value": "",
+                "type": "path",
+                "description": "MC number of the carrier being looked up"
+              },
+              {
+                "name": "company_external_key",
+                "value": "",
+                "type": "query",
+                "description": "External key of the broker that this carrier belongs to"
+              }
+            ]
+          },
+          "docs": "Given the MC number and the broker external key, we can share the current onboarding status for that carrier.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,186 @@
+{
+  "item": [
+    {
+      "id": "163425be-5207-495d-94d6-44f2a7ba280b",
+      "name": "Carrier Synchronization",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2367616d-8096-47b9-9048-74a577df9a0f",
+          "name": "Carrier update notifications",
+          "request": {
+            "name": "Carrier update notifications",
+            "description": {
+              "content": "Set this up if you want to receive carrier sync notifications from Parade.\n\nThese updates can happen in bursts and may be high traffic. We recommend exploring the carrier onboarding lookup API as an alternative.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "your-carrier-sync-webhook"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"update_type\": \"<string>\",\n  \"company_external_key\": \"<string>\",\n  \"company_name\": \"<string>\",\n  \"dot_number\": \"<string>\",\n  \"mc_number\": \"<string>\",\n  \"enable_reservations\": \"<boolean>\",\n  \"is_on_deck\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "84d02b0a-c79e-4af1-9d25-7b87bd26dd0e",
+              "name": "notification received",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "your-carrier-sync-webhook"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"update_type\": \"<string>\",\n  \"company_external_key\": \"<string>\",\n  \"company_name\": \"ReedTMS\",\n  \"dot_number\": \"<string>\",\n  \"mc_number\": \"<string>\",\n  \"enable_reservations\": \"<boolean>\",\n  \"is_on_deck\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2b86092b-2cf8-41f2-a3ed-459864d35b70",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "your-carrier-sync-webhook"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"update_type\": \"<string>\",\n  \"company_external_key\": \"<string>\",\n  \"company_name\": \"ReedTMS\",\n  \"dot_number\": \"<string>\",\n  \"mc_number\": \"<string>\",\n  \"enable_reservations\": \"<boolean>\",\n  \"is_on_deck\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.capacity.stage.parade.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "03c0f5b2-469c-4f9c-b2db-42b9ea07898d",
+    "name": "Parade Transactions Available Trucks Carrier Synchronization API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Parade's APIs available for digital transactions\n\nContact Support:\n Name: Parade Eng Team\n Email: eng@parade.ai",
+      "type": "text/plain"
+    }
+  }
+}

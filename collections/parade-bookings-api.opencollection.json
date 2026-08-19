@@ -1,0 +1,75 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Parade Transactions Available Trucks Bookings API",
+    "version": "1.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bookings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Post your bookings here",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.capacity.stage.parade.ai/ls/syndication/book",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Post your bookings here. \n\nEvery time a Book Now happens, one of 3 things may happen:\n\n- If we are API integrated back to the broker TMS (80%+ of the time), the book endpoint will ping the broker TMS \n  when your request is made and return a response code immediately, with a 201 if the booking was successful. \n\n- If the broker is not API integrated, we either need to run an asynchronous RPA or have the broker manually complete the booking, which can take up to 30 minutes.\n  If you want to set up"
+        },
+        {
+          "info": {
+            "name": "Retrieve Booking",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.capacity.stage.parade.ai/ls/syndication/book/:reservation_id",
+            "params": [
+              {
+                "name": "reservation_id",
+                "value": "",
+                "type": "path",
+                "description": "Reservation ID that you are retrieving"
+              }
+            ]
+          },
+          "docs": "Retrieve information about a created booking"
+        },
+        {
+          "info": {
+            "name": "Cancels a carrier booking.\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.capacity.stage.parade.ai/ls/syndication/drop",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This view is called by syndication partners that have previously reserved a load.\n\nThe process cancels the reservation and puts it in an abandoned status, because the carrier “dropped” the load.    \nThe carrier needs to be the one that previously reserved the load, otherwise an error will be returned.\n\nIf you need to cancel a Quote that hasn't been accepted yet, please use the Quote `/cancel` endpoint.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

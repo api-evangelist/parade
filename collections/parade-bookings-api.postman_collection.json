@@ -1,0 +1,1239 @@
+{
+  "item": [
+    {
+      "id": "08681cbe-b8a7-43d4-9678-a2af85df126f",
+      "name": "Bookings",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9bae62fa-5c98-4251-a160-8177521315ae",
+          "name": "Post your bookings here",
+          "request": {
+            "name": "Post your bookings here",
+            "description": {
+              "content": "Post your bookings here. \n\nEvery time a Book Now happens, one of 3 things may happen:\n\n- If we are API integrated back to the broker TMS (80%+ of the time), the book endpoint will ping the broker TMS \n  when your request is made and return a response code immediately, with a 201 if the booking was successful. \n\n- If the broker is not API integrated, we either need to run an asynchronous RPA or have the broker manually complete the booking, which can take up to 30 minutes.\n  If you want to set up a webhook to receive booking confirmation events via a webhook, please take a look at the Booking Confirmation Webhook documentation.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ls",
+                "syndication",
+                "book"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"carrier_dot_number\": \"<string>\",\n  \"carrier_email\": \"<string>\",\n  \"carrier_name\": \"<string>\",\n  \"carrier_phone_number\": \"<string>\",\n  \"company_external_key\": \"<string>\",\n  \"load_reference_id\": \"<string>\",\n  \"offer_external_key\": \"<string>\",\n  \"carrier_mc_number\": \"<string>\",\n  \"offer_rate\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "88eec36b-8e24-4d2c-977a-b81e5d23f40d",
+              "name": "Booking created and accepted\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ls",
+                    "syndication",
+                    "book"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"carrier_dot_number\": \"23123123\",\n  \"carrier_email\": \"test@parade.ai\",\n  \"carrier_name\": \"Bob's Trucking\",\n  \"carrier_phone_number\": \"510-022-0222\",\n  \"company_external_key\": \"reed\",\n  \"load_reference_id\": \"R131232\",\n  \"offer_external_key\": \"32o847o8234\",\n  \"carrier_mc_number\": \"13122\",\n  \"offer_rate\": 1000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1341,\n  \"message\": \"Successfully booked over API\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "43af7a93-9e4c-4fa1-a07b-868f46685ef3",
+              "name": "Booking received, but still being processed\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ls",
+                    "syndication",
+                    "book"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"carrier_dot_number\": \"23123123\",\n  \"carrier_email\": \"test@parade.ai\",\n  \"carrier_name\": \"Bob's Trucking\",\n  \"carrier_phone_number\": \"510-022-0222\",\n  \"company_external_key\": \"reed\",\n  \"load_reference_id\": \"R131232\",\n  \"offer_external_key\": \"32o847o8234\",\n  \"carrier_mc_number\": \"13122\",\n  \"offer_rate\": 1000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1341,\n  \"message\": \"Successfully booked but pending broker assignment\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b46d1d94-9a00-4bf0-b295-30216546d15e",
+              "name": "Invalid input, object invalid\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ls",
+                    "syndication",
+                    "book"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"carrier_dot_number\": \"23123123\",\n  \"carrier_email\": \"test@parade.ai\",\n  \"carrier_name\": \"Bob's Trucking\",\n  \"carrier_phone_number\": \"510-022-0222\",\n  \"company_external_key\": \"reed\",\n  \"load_reference_id\": \"R131232\",\n  \"offer_external_key\": \"32o847o8234\",\n  \"carrier_mc_number\": \"13122\",\n  \"offer_rate\": 1000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c4839c20-cf1d-4850-ba60-5a950f1bd9ac",
+              "name": "Invalid authentication\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ls",
+                    "syndication",
+                    "book"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"carrier_dot_number\": \"23123123\",\n  \"carrier_email\": \"test@parade.ai\",\n  \"carrier_name\": \"Bob's Trucking\",\n  \"carrier_phone_number\": \"510-022-0222\",\n  \"company_external_key\": \"reed\",\n  \"load_reference_id\": \"R131232\",\n  \"offer_external_key\": \"32o847o8234\",\n  \"carrier_mc_number\": \"13122\",\n  \"offer_rate\": 1000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a6ef8e9a-ac9c-4259-bca5-e4899824a238",
+              "name": "Load not found or Company not found (see error message)\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ls",
+                    "syndication",
+                    "book"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"carrier_dot_number\": \"23123123\",\n  \"carrier_email\": \"test@parade.ai\",\n  \"carrier_name\": \"Bob's Trucking\",\n  \"carrier_phone_number\": \"510-022-0222\",\n  \"company_external_key\": \"reed\",\n  \"load_reference_id\": \"R131232\",\n  \"offer_external_key\": \"32o847o8234\",\n  \"carrier_mc_number\": \"13122\",\n  \"offer_rate\": 1000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "516f2b30-7009-4cb2-b6e5-fca73e0fcdbd",
+              "name": "Load no longer available or Offer is no longer valid (see error message)\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ls",
+                    "syndication",
+                    "book"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"carrier_dot_number\": \"23123123\",\n  \"carrier_email\": \"test@parade.ai\",\n  \"carrier_name\": \"Bob's Trucking\",\n  \"carrier_phone_number\": \"510-022-0222\",\n  \"company_external_key\": \"reed\",\n  \"load_reference_id\": \"R131232\",\n  \"offer_external_key\": \"32o847o8234\",\n  \"carrier_mc_number\": \"13122\",\n  \"offer_rate\": 1000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Gone",
+              "code": 410,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "578bca23-7d17-4aaf-871f-b212213008f6",
+              "name": "Service error, please notify Parade through our partner Slack or eng@parade.ai\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ls",
+                    "syndication",
+                    "book"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"carrier_dot_number\": \"23123123\",\n  \"carrier_email\": \"test@parade.ai\",\n  \"carrier_name\": \"Bob's Trucking\",\n  \"carrier_phone_number\": \"510-022-0222\",\n  \"company_external_key\": \"reed\",\n  \"load_reference_id\": \"R131232\",\n  \"offer_external_key\": \"32o847o8234\",\n  \"carrier_mc_number\": \"13122\",\n  \"offer_rate\": 1000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c433cc36-c3f0-4701-b7f2-ec600b601915",
+              "name": "Service unavailable, please retry later\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ls",
+                    "syndication",
+                    "book"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"carrier_dot_number\": \"23123123\",\n  \"carrier_email\": \"test@parade.ai\",\n  \"carrier_name\": \"Bob's Trucking\",\n  \"carrier_phone_number\": \"510-022-0222\",\n  \"company_external_key\": \"reed\",\n  \"load_reference_id\": \"R131232\",\n  \"offer_external_key\": \"32o847o8234\",\n  \"carrier_mc_number\": \"13122\",\n  \"offer_rate\": 1000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Gateway Timeout",
+              "code": 504,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "856cce6e-ab06-44aa-809c-355301b8a232",
+          "name": "Retrieve Booking",
+          "request": {
+            "name": "Retrieve Booking",
+            "description": {
+              "content": "Retrieve information about a created booking",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ls",
+                "syndication",
+                "book",
+                ":reservation_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "reservation_id",
+                  "description": "(Required) Reservation ID that you are retrieving"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ef94f09d-3cf7-41b2-a4ca-665a46f964d8",
+              "name": "success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ls",
+                    "syndication",
+                    "book",
+                    ":reservation_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "reservation_id",
+                      "description": "(Required) Reservation ID that you are retrieving"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"load_id\": \"A12123\",\n  \"reservation_id\": 6895,\n  \"all_in_rate\": 5440.8856234339455,\n  \"created_at\": \"string\",\n  \"dot_number\": \"string\",\n  \"broker_external_key\": \"string\",\n  \"acceptance_status\": \"Confirm\",\n  \"mc_number\": \"string\",\n  \"carrier_email\": \"string\",\n  \"carrier_name\": \"string\",\n  \"rate_confirmation_email\": \"string\",\n  \"notified_email\": \"string\",\n  \"notified_name\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "05d18011-6a01-42dc-bbd3-0202ce525c0f",
+              "name": "Invalid input, object invalid\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ls",
+                    "syndication",
+                    "book",
+                    ":reservation_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "reservation_id",
+                      "description": "(Required) Reservation ID that you are retrieving"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6480c49d-6b2e-466e-a188-77a2c5ab5c1b",
+              "name": "Invalid authentication\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ls",
+                    "syndication",
+                    "book",
+                    ":reservation_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "reservation_id",
+                      "description": "(Required) Reservation ID that you are retrieving"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e0bfeb20-4baf-48a7-ace9-327ce47feca4",
+              "name": "Booking not found\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ls",
+                    "syndication",
+                    "book",
+                    ":reservation_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "reservation_id",
+                      "description": "(Required) Reservation ID that you are retrieving"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "596ee36c-45a4-475b-9381-c064fc31cddc",
+              "name": "Booking no longer available/valid\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ls",
+                    "syndication",
+                    "book",
+                    ":reservation_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "reservation_id",
+                      "description": "(Required) Reservation ID that you are retrieving"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Gone",
+              "code": 410,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0b964b25-368e-4608-8189-54935e14444b",
+              "name": "Service error, please notify eng@parade.ai\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ls",
+                    "syndication",
+                    "book",
+                    ":reservation_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "reservation_id",
+                      "description": "(Required) Reservation ID that you are retrieving"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0c5dedd3-c22b-4392-bce4-c028c24e5e87",
+              "name": "Service unavailable, please retry later\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ls",
+                    "syndication",
+                    "book",
+                    ":reservation_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "reservation_id",
+                      "description": "(Required) Reservation ID that you are retrieving"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Gateway Timeout",
+              "code": 504,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "91f30e2a-8387-4964-8d1f-4f8ff947e820",
+          "name": "Cancels a carrier booking.\n",
+          "request": {
+            "name": "Cancels a carrier booking.\n",
+            "description": {
+              "content": "This view is called by syndication partners that have previously reserved a load.\n\nThe process cancels the reservation and puts it in an abandoned status, because the carrier “dropped” the load.    \nThe carrier needs to be the one that previously reserved the load, otherwise an error will be returned.\n\nIf you need to cancel a Quote that hasn't been accepted yet, please use the Quote `/cancel` endpoint.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ls",
+                "syndication",
+                "drop"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"load_reference_id\": \"<string>\",\n  \"carrier_name\": \"<string>\",\n  \"carrier_dot_number\": \"<string>\",\n  \"company_external_key\": \"<string>\",\n  \"reason_message\": \"<string>\",\n  \"carrier_mc_number\": \"<string>\",\n  \"carrier_email\": \"<string>\",\n  \"carrier_user_contact_name\": \"<string>\",\n  \"offer_external_key\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c37bbae8-2351-44a0-aede-70e69388ca9b",
+              "name": "success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ls",
+                    "syndication",
+                    "drop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"load_reference_id\": \"R131232\",\n  \"carrier_name\": \"Bob's Trucking\",\n  \"carrier_dot_number\": \"23123123\",\n  \"company_external_key\": \"reed\",\n  \"reason_message\": \"Too Heavy\",\n  \"carrier_mc_number\": \"13122\",\n  \"carrier_email\": \"test@parade.ai\",\n  \"carrier_user_contact_name\": \"Bob\",\n  \"offer_external_key\": \"32o847o8234\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f296af44-d34e-4c40-8856-76c8e01390f0",
+              "name": "Invalid input, object invalid\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ls",
+                    "syndication",
+                    "drop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"load_reference_id\": \"R131232\",\n  \"carrier_name\": \"Bob's Trucking\",\n  \"carrier_dot_number\": \"23123123\",\n  \"company_external_key\": \"reed\",\n  \"reason_message\": \"Too Heavy\",\n  \"carrier_mc_number\": \"13122\",\n  \"carrier_email\": \"test@parade.ai\",\n  \"carrier_user_contact_name\": \"Bob\",\n  \"offer_external_key\": \"32o847o8234\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2f1f7dcf-aa76-4a90-8c83-0e1fdc1eb0f7",
+              "name": "Invalid authentication\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ls",
+                    "syndication",
+                    "drop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"load_reference_id\": \"R131232\",\n  \"carrier_name\": \"Bob's Trucking\",\n  \"carrier_dot_number\": \"23123123\",\n  \"company_external_key\": \"reed\",\n  \"reason_message\": \"Too Heavy\",\n  \"carrier_mc_number\": \"13122\",\n  \"carrier_email\": \"test@parade.ai\",\n  \"carrier_user_contact_name\": \"Bob\",\n  \"offer_external_key\": \"32o847o8234\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "74f84265-24b6-4e31-879f-1a9b5bf3fc3f",
+              "name": "Load matching this id not found or the carrier information doesn't match the load reservation/offer.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ls",
+                    "syndication",
+                    "drop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"load_reference_id\": \"R131232\",\n  \"carrier_name\": \"Bob's Trucking\",\n  \"carrier_dot_number\": \"23123123\",\n  \"company_external_key\": \"reed\",\n  \"reason_message\": \"Too Heavy\",\n  \"carrier_mc_number\": \"13122\",\n  \"carrier_email\": \"test@parade.ai\",\n  \"carrier_user_contact_name\": \"Bob\",\n  \"offer_external_key\": \"32o847o8234\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d3c5caae-e7d8-462b-8854-9c425340ec88",
+              "name": "Service error, please notify Parade through our partner Slack or eng@parade.ai\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ls",
+                    "syndication",
+                    "drop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"load_reference_id\": \"R131232\",\n  \"carrier_name\": \"Bob's Trucking\",\n  \"carrier_dot_number\": \"23123123\",\n  \"company_external_key\": \"reed\",\n  \"reason_message\": \"Too Heavy\",\n  \"carrier_mc_number\": \"13122\",\n  \"carrier_email\": \"test@parade.ai\",\n  \"carrier_user_contact_name\": \"Bob\",\n  \"offer_external_key\": \"32o847o8234\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "27444b70-6e4b-44c4-8bb3-13a4ea65c1ef",
+              "name": "Service unavailable, please retry later\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ls",
+                    "syndication",
+                    "drop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"load_reference_id\": \"R131232\",\n  \"carrier_name\": \"Bob's Trucking\",\n  \"carrier_dot_number\": \"23123123\",\n  \"company_external_key\": \"reed\",\n  \"reason_message\": \"Too Heavy\",\n  \"carrier_mc_number\": \"13122\",\n  \"carrier_email\": \"test@parade.ai\",\n  \"carrier_user_contact_name\": \"Bob\",\n  \"offer_external_key\": \"32o847o8234\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Gateway Timeout",
+              "code": 504,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.capacity.stage.parade.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "58a79fed-efb1-4bf1-84d1-9b504d474dae",
+    "name": "Parade Transactions Available Trucks Bookings API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Parade's APIs available for digital transactions\n\nContact Support:\n Name: Parade Eng Team\n Email: eng@parade.ai",
+      "type": "text/plain"
+    }
+  }
+}

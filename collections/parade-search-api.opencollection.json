@@ -1,0 +1,111 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Parade Transactions Available Trucks Search API",
+    "version": "1.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search for loads here",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.capacity.stage.parade.ai/syndication/loads",
+            "params": [
+              {
+                "name": "src_date",
+                "value": "2020-01-01",
+                "type": "query",
+                "description": "pickup date of load"
+              },
+              {
+                "name": "src_date__gte",
+                "value": "2020-01-01",
+                "type": "query",
+                "description": "earliest pickup date of load"
+              },
+              {
+                "name": "src_date__lte",
+                "value": "2020-01-01",
+                "type": "query",
+                "description": "latest pickup date of load"
+              },
+              {
+                "name": "dst_date",
+                "value": "2020-01-01",
+                "type": "query",
+                "description": "dropoff date of load"
+              },
+              {
+                "name": "dst_date__gte",
+                "value": "2020-01-01",
+                "type": "query",
+                "description": "earliest dropoff date of load"
+              },
+              {
+                "name": "dst_date__lte",
+                "value": "2020-01-01",
+                "type": "query",
+                "description": "latest dropoff date of load"
+              },
+              {
+                "name": "company_external_key",
+                "value": "reed",
+                "type": "query",
+                "description": "filters on company specific"
+              },
+              {
+                "name": "equipment",
+                "value": "Van,reefer",
+                "type": "query",
+                "description": "Equipment of load. Valid filter values are \"Van\", \"Flatbed\", or \"Reefer\".\n\nFilter for multiple equipment types with comma separated values.\n"
+              },
+              {
+                "name": "src_state",
+                "value": "TX",
+                "type": "query",
+                "description": "pickup state of load"
+              },
+              {
+                "name": "dst_state",
+                "value": "CA",
+                "type": "query",
+                "description": "destination state of load"
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "Pagination: Page number to retrieve. Defaults to 1.\n"
+              },
+              {
+                "name": "limit",
+                "value": "100",
+                "type": "query",
+                "description": "Pagination: Number of loads to retrieve per page. Defaults to 2000.\n"
+              }
+            ]
+          },
+          "docs": "Search for available loads here. We currently do not support filtering based on city or radius, only state.\n\nUsers are recommended to query and paginate to receive all available loads. Use page and limit query string parameters and the returned x-total-count header to paginate.\n\nAny load that is no longer returned by this API should be considered unavailable and removed from third party loadboards.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
