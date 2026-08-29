@@ -1,18 +1,22 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Parade Transactions Available Trucks Digital Conversion API
-  description: Parade's APIs available for digital transactions
+  title: Parade Syndication Webhooks Digital Conversion API
+  description: 'Webhooks set up on the partner side to receive notifications from Parade.
+
+
+    Please contact us to set up URLs.
+
+    '
   contact:
     email: eng@parade.ai
     name: Parade Eng Team
   license:
     name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.1.0
 servers:
-- url: https://api.capacity.stage.parade.ai
-security:
-- tokenAuth: []
+- url: https://your-url
+security: []
 tags:
 - name: Digital Conversion
 paths:
@@ -77,9 +81,3 @@ components:
             May be different from the initial quote/booking rate.
 
             '
-  securitySchemes:
-    tokenAuth:
-      type: apiKey
-      name: Authorization
-      in: header
-      description: Contact us to get an authorization token

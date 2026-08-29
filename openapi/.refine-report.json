@@ -1,28 +1,45 @@
 {
   "provider": "parade",
   "sources": [
-    "parade-available-trucks-api-openapi.yml",
-    "parade-bookings-api-openapi.yml",
-    "parade-carrier-onboarding-status-api-openapi.yml",
-    "parade-carrier-synchronization-api-openapi.yml",
-    "parade-digital-conversion-api-openapi.yml",
-    "parade-load-synchronization-api-openapi.yml",
-    "parade-quotes-api-openapi.yml",
-    "parade-search-api-openapi.yml"
+    "_original/parade-digital-transactions-openapi.yaml",
+    "_original/parade-load-sync-openapi.yaml",
+    "_original/parade-partner-webhooks-openapi.yaml"
   ],
   "outputs": [
     "parade-available-trucks-api-openapi.yml",
     "parade-bookings-api-openapi.yml",
     "parade-carrier-onboarding-status-api-openapi.yml",
-    "parade-carrier-synchronization-api-openapi.yml",
-    "parade-digital-conversion-api-openapi.yml",
     "parade-load-synchronization-api-openapi.yml",
     "parade-quotes-api-openapi.yml",
-    "parade-search-api-openapi.yml"
+    "parade-search-api-openapi.yml",
+    "parade-carrier-synchronization-api-openapi.yml",
+    "parade-digital-conversion-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (3 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "parade-digital-transactions-openapi.yaml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "parade-digital-transactions-openapi.yaml: declared missing tag: Available Trucks",
+    "parade-digital-transactions-openapi.yaml: declared missing tag: Bookings",
+    "parade-digital-transactions-openapi.yaml: declared missing tag: Carrier Onboarding Status",
+    "parade-digital-transactions-openapi.yaml: declared missing tag: Load Synchronization",
+    "parade-digital-transactions-openapi.yaml: declared missing tag: Quotes",
+    "parade-load-sync-openapi.yaml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "parade-load-sync-openapi.yaml: declared missing tag: Search",
+    "parade-partner-webhooks-openapi.yaml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "parade-partner-webhooks-openapi.yaml: declared missing tag: Carrier Synchronization",
+    "parade-partner-webhooks-openapi.yaml: declared missing tag: Digital Conversion"
+  ],
+  "skipped": [
+    "parade-available-trucks-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "parade-bookings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "parade-carrier-onboarding-status-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "parade-carrier-synchronization-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "parade-digital-conversion-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "parade-load-synchronization-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "parade-quotes-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "parade-search-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

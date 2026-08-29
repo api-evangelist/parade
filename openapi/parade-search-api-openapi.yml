@@ -1,16 +1,25 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Parade Transactions Available Trucks Search API
-  description: Parade's APIs available for digital transactions
+  title: Parade Load Feed Search API
+  description: 'Parade''s API for 3rd party polling or syncing loads.
+
+
+    This API is optimized for searching and bulk synchronization.
+
+    If you wish to synchronize which actions a carrier is allowed to take
+
+    on a specific load, use the Digital Transactions API.
+
+    '
   contact:
     email: eng@parade.ai
     name: Parade Eng Team
   license:
     name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.1.0
 servers:
-- url: https://api.capacity.stage.parade.ai
+- url: https://api.syndication.stage.parade.ai
 security:
 - tokenAuth: []
 tags:
@@ -180,6 +189,64 @@ paths:
             '
 components:
   schemas:
+    Stop:
+      type: object
+      required:
+      - city
+      - state
+      - stop_type
+      properties:
+        city:
+          type: string
+          example: Los Angeles
+        state:
+          type: string
+          example: CA
+        stop_type:
+          type: string
+          example: P
+          description: P is a pick, D is a drop
+          enum:
+          - P
+          - D
+        stop_num:
+          type: number
+          example: 1
+        postal_code:
+          type: string
+          example: '94158'
+        date:
+          type: string
+          description: The date for pickup/delivery activity
+          format: datetime
+          example: '2020-01-01'
+        appt_time:
+          type: string
+          description: Appointment time
+          format: time
+          example: 07:00:00
+        appt_inst:
+          type: string
+          description: Appointment instructions
+          example: Text when ready
+        early_time:
+          type: string
+          description: Earliest pickup time
+          format: time
+          example: 07:00:00
+        late_time:
+          type: string
+          description: Latest pickup time
+          format: time
+          example: 08:00:00
+        strt_address_1:
+          type: string
+          description: Street Address (First line). Most brokers suppress this data.
+          example: 1010 sesame street
+        strt_address_2:
+          type: string
+          description: Street Address (Second line). Most brokers suppress this data.
+          example: ASK BROKER
     Load:
       required:
       - booking_link
@@ -348,64 +415,6 @@ components:
               LENGTH: 53
               TEAM: true
           description: Key value pairings indicating all other extras and accessorials
-    Stop:
-      type: object
-      required:
-      - city
-      - state
-      - stop_type
-      properties:
-        city:
-          type: string
-          example: Los Angeles
-        state:
-          type: string
-          example: CA
-        stop_type:
-          type: string
-          example: P
-          description: P is a pick, D is a drop
-          enum:
-          - P
-          - D
-        stop_num:
-          type: number
-          example: 1
-        postal_code:
-          type: string
-          example: '94158'
-        date:
-          type: string
-          description: The date for pickup/delivery activity
-          format: datetime
-          example: '2020-01-01'
-        appt_time:
-          type: string
-          description: Appointment time
-          format: time
-          example: 07:00:00
-        appt_inst:
-          type: string
-          description: Appointment instructions
-          example: Text when ready
-        early_time:
-          type: string
-          description: Earliest pickup time
-          format: time
-          example: 07:00:00
-        late_time:
-          type: string
-          description: Latest pickup time
-          format: time
-          example: 08:00:00
-        strt_address_1:
-          type: string
-          description: Street Address (First line). Most brokers suppress this data.
-          example: 1010 sesame street
-        strt_address_2:
-          type: string
-          description: Street Address (Second line). Most brokers suppress this data.
-          example: ASK BROKER
   securitySchemes:
     tokenAuth:
       type: apiKey

@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Parade Transactions Available Trucks Load Synchronization API
+  title: Parade Transactions Load Synchronization API
   description: Parade's APIs available for digital transactions
   contact:
     email: eng@parade.ai
@@ -78,6 +78,64 @@ paths:
             '
 components:
   schemas:
+    Stop:
+      type: object
+      required:
+      - city
+      - state
+      - stop_type
+      properties:
+        city:
+          type: string
+          example: Los Angeles
+        state:
+          type: string
+          example: CA
+        stop_type:
+          type: string
+          example: P
+          description: P is a pick, D is a drop
+          enum:
+          - P
+          - D
+        stop_num:
+          type: integer
+          example: 1
+        postal_code:
+          type: string
+          example: '94158'
+        date:
+          type: string
+          format: date
+          description: The date for pickup/delivery activity
+          example: '2020-01-01'
+        appt_time:
+          type: string
+          format: time
+          description: Appointment time
+          example: 07:00:00
+        appt_inst:
+          type: string
+          description: Appointment instructions
+          example: Text when ready
+        early_time:
+          type: string
+          format: time
+          description: Earliest pickup time
+          example: 07:00:00
+        late_time:
+          type: string
+          format: time
+          description: Latest pickup time
+          example: 08:00:00
+        strt_address_1:
+          type: string
+          description: Street Address (First line). Most brokers suppress this data.
+          example: 1010 sesame street
+        strt_address_2:
+          type: string
+          description: Street Address (Second line). Most brokers suppress this data.
+          example: ASK BROKER
     Load:
       required:
       - booking_link
@@ -244,64 +302,6 @@ components:
               LENGTH: 53
               TEAM: true
           description: Key value pairings indicating all other extras and accessorials
-    Stop:
-      type: object
-      required:
-      - city
-      - state
-      - stop_type
-      properties:
-        city:
-          type: string
-          example: Los Angeles
-        state:
-          type: string
-          example: CA
-        stop_type:
-          type: string
-          example: P
-          description: P is a pick, D is a drop
-          enum:
-          - P
-          - D
-        stop_num:
-          type: integer
-          example: 1
-        postal_code:
-          type: string
-          example: '94158'
-        date:
-          type: string
-          format: date
-          description: The date for pickup/delivery activity
-          example: '2020-01-01'
-        appt_time:
-          type: string
-          format: time
-          description: Appointment time
-          example: 07:00:00
-        appt_inst:
-          type: string
-          description: Appointment instructions
-          example: Text when ready
-        early_time:
-          type: string
-          format: time
-          description: Earliest pickup time
-          example: 07:00:00
-        late_time:
-          type: string
-          format: time
-          description: Latest pickup time
-          example: 08:00:00
-        strt_address_1:
-          type: string
-          description: Street Address (First line). Most brokers suppress this data.
-          example: 1010 sesame street
-        strt_address_2:
-          type: string
-          description: Street Address (Second line). Most brokers suppress this data.
-          example: ASK BROKER
   securitySchemes:
     tokenAuth:
       type: apiKey
