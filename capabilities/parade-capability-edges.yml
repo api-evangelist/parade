@@ -1,0 +1,37 @@
+slug: parade
+provider: Parade
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Transportation & Logistics
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: Available Trucks
+  spec_file: parade-available-trucks-api-openapi.yml
+  capability_id: BC-2400.10
+  capability_id_l1: BC-2400
+  capability_name: Capacity Inventory Management
+  confidence: 0.78
+  evidence: POST /ls/syndication/post-truck 'Post your Available Trucks here'; schema 'PostedTruck'; vendor
+    'capacity-management ... platform for freight brokers ... to surface truck availability'
+  reason: Posting available trucks maintains an inventory of available road transport capacity by equipment
+    type and lane, which is exactly capacity inventory maintenance as the source for allocation. Some
+    residual ambiguity vs capacity allocation, hence 0.78.
+- tag: Bookings
+  spec_file: parade-bookings-api-openapi.yml
+  capability_id: BC-2400.40
+  capability_id_l1: BC-2400
+  capability_name: Booking and Reservation Management
+  confidence: 0.75
+  evidence: POST /ls/syndication/book 'Post your bookings here'; GET /ls/syndication/book/{reservation_id}
+    'Retrieve Booking'; POST /ls/syndication/drop 'Cancels a carrier booking.'
+  reason: Acceptance, retrieval and cancellation of freight bookings/reservations against quoted loads
+    is booking and reservation management. Slight ambiguity because the booking is of a carrier against
+    a broker load, which could also be read as carrier procurement (BC-2450.20).

@@ -176,6 +176,9 @@ apis:
   - type: Webhooks
     url: openapi/_original/parade-partner-webhooks-openapi.yaml
 common:
+- type: CapabilityMap
+  url: capabilities/parade-capability-edges.yml
+  name: Parade Business Capability Map
 - type: Website
   url: https://parade.ai
 - type: DeveloperPortal
