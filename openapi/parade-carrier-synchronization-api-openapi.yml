@@ -4,9 +4,7 @@ info:
   description: 'Webhooks set up on the partner side to receive notifications from Parade.
 
 
-    Please contact us to set up URLs.
-
-    '
+    Please contact us to set up URLs.'
   contact:
     email: eng@parade.ai
     name: Parade Eng Team
@@ -29,9 +27,7 @@ paths:
       description: 'Set this up if you want to receive carrier sync notifications from Parade.
 
 
-        These updates can happen in bursts and may be high traffic. We recommend exploring the carrier onboarding lookup API as an alternative.
-
-        '
+        These updates can happen in bursts and may be high traffic. We recommend exploring the carrier onboarding lookup API as an alternative.'
       requestBody:
         content:
           application/json:

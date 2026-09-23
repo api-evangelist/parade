@@ -30,7 +30,8 @@
     "parade-load-sync-openapi.yaml: declared missing tag: Search",
     "parade-partner-webhooks-openapi.yaml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
     "parade-partner-webhooks-openapi.yaml: declared missing tag: Carrier Synchronization",
-    "parade-partner-webhooks-openapi.yaml: declared missing tag: Digital Conversion"
+    "parade-partner-webhooks-openapi.yaml: declared missing tag: Digital Conversion",
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "parade-available-trucks-api-openapi.yml: previously refined output, superseded by openapi/_original/",

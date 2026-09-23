@@ -22,9 +22,7 @@ paths:
       tags:
       - Carrier Onboarding Status
       summary: Get the onboarding status of a carrier
-      description: 'Given the DOT number and the broker external key, we can share the current onboarding status for that carrier.
-
-        '
+      description: Given the DOT number and the broker external key, we can share the current onboarding status for that carrier.
       parameters:
       - in: path
         name: dot_number
@@ -73,9 +71,7 @@ paths:
       tags:
       - Carrier Onboarding Status
       summary: Get the onboarding status of a carrier with a MC Number
-      description: 'Given the MC number and the broker external key, we can share the current onboarding status for that carrier.
-
-        '
+      description: Given the MC number and the broker external key, we can share the current onboarding status for that carrier.
       parameters:
       - in: path
         name: mc_number

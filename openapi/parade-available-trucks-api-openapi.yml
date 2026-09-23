@@ -22,7 +22,13 @@ paths:
       tags:
       - Available Trucks
       summary: Post your Available Trucks here
-      description: "Post your Available Trucks here. \n\nThis will be matched to our broker's loads, and they will be able to view your trucks in the Parade broker portal.\n\nThe carrier may also receive matched loads via an email response from Parade if the broker has this feature enabled.\n"
+      description: 'Post your Available Trucks here.
+
+
+        This will be matched to our broker''s loads, and they will be able to view your trucks in the Parade broker portal.
+
+
+        The carrier may also receive matched loads via an email response from Parade if the broker has this feature enabled.'
       requestBody:
         content:
           application/json:

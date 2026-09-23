@@ -22,7 +22,15 @@ paths:
       tags:
       - Quotes
       summary: Post your quotes here
-      description: "Post your quotes here.\n\nEach time a quote is created, we will display the carrier quote on our broker portal and also notify the broker via e-email.     \nA carrier may quote multiple times through this endpoint, but please note that each time the broker will be notified.\n\nIf a carrier is disqualified for this broker or marked as no dispatch, the broker may not receive this notification.\n"
+      description: 'Post your quotes here.
+
+
+        Each time a quote is created, we will display the carrier quote on our broker portal and also notify the broker via e-email.
+
+        A carrier may quote multiple times through this endpoint, but please note that each time the broker will be notified.
+
+
+        If a carrier is disqualified for this broker or marked as no dispatch, the broker may not receive this notification.'
       requestBody:
         content:
           application/json:
@@ -135,9 +143,7 @@ paths:
       description: 'Cancels/expires a quote that hasn''t been accepted yet. A canceled quote is still shown to the broker but cannot be automatically booked.
 
 
-        If the quote was already accepted, please use the Reservation `/drop` endpoint to cancel the reservation.
-
-        '
+        If the quote was already accepted, please use the Reservation `/drop` endpoint to cancel the reservation.'
       parameters:
       - in: path
         name: quote_id
@@ -183,72 +189,6 @@ paths:
             '
 components:
   schemas:
-    Quote410ErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          type: string
-          example: Load is no longer available
-          description: Error message indicating the failure
-    QuoteStatus:
-      type: object
-      required:
-      - load_id
-      - quote_id
-      - quote_amount
-      - created_at
-      - dot_number
-      - broker_external_key
-      - acceptance_status
-      properties:
-        load_id:
-          type: string
-          example: A12123
-          description: Reference number of the load
-        quote_id:
-          type: integer
-          description: Unique ID of the Quote
-        quote_amount:
-          type: number
-          description: Total quote amount in USD
-        created_at:
-          type: string
-          description: When this quote was created
-        dot_number:
-          type: string
-          description: DOT number of the carrier
-        mc_number:
-          type: string
-          description: MC number of the carrier
-        central_dispatch_email:
-          type: string
-          description: Contact email of the carrier who quoted
-        central_dispatch_phone:
-          type: string
-          description: Contact phone of the carrier who quoted
-        broker_external_key:
-          type: string
-          description: Unique key identifying the broker
-        acceptance_status:
-          type: string
-          enum:
-          - Conflict
-          - Confirm
-          - Needs Action
-        expired_at:
-          type: string
-          description: When the quote was expired
-    Quote406ErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          type: string
-          example: Carrier disqualified
-          description: Error message indicating the failure
     Quote404ErrorResponse:
       type: object
       required:
@@ -258,12 +198,6 @@ components:
           type: string
           example: Load not found
           description: Error message indicating the failure
-    Cancel:
-      type: object
-      properties:
-        reason:
-          type: string
-          description: Optional reason for the quote cancellation
     QuoteCreationResponse:
       type: object
       required:
@@ -278,6 +212,21 @@ components:
           type: string
           example: quote created
           description: Message indicating the status of the quote creation.
+    Cancel:
+      type: object
+      properties:
+        reason:
+          type: string
+          description: Optional reason for the quote cancellation
+    Quote410ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
+          example: Load is no longer available
+          description: Error message indicating the failure
     Quote:
       type: object
       required:
@@ -327,6 +276,63 @@ components:
           type: string
           example: WrongMcOrDotNumberError
           description: Error message indicating the failure
+    Quote406ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
+          example: Carrier disqualified
+          description: Error message indicating the failure
+    QuoteStatus:
+      type: object
+      required:
+      - load_id
+      - quote_id
+      - quote_amount
+      - created_at
+      - dot_number
+      - broker_external_key
+      - acceptance_status
+      properties:
+        load_id:
+          type: string
+          example: A12123
+          description: Reference number of the load
+        quote_id:
+          type: integer
+          description: Unique ID of the Quote
+        quote_amount:
+          type: number
+          description: Total quote amount in USD
+        created_at:
+          type: string
+          description: When this quote was created
+        dot_number:
+          type: string
+          description: DOT number of the carrier
+        mc_number:
+          type: string
+          description: MC number of the carrier
+        central_dispatch_email:
+          type: string
+          description: Contact email of the carrier who quoted
+        central_dispatch_phone:
+          type: string
+          description: Contact phone of the carrier who quoted
+        broker_external_key:
+          type: string
+          description: Unique key identifying the broker
+        acceptance_status:
+          type: string
+          enum:
+          - Conflict
+          - Confirm
+          - Needs Action
+        expired_at:
+          type: string
+          description: When the quote was expired
   securitySchemes:
     tokenAuth:
       type: apiKey

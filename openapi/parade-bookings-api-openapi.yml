@@ -22,7 +22,20 @@ paths:
       tags:
       - Bookings
       summary: Post your bookings here
-      description: "Post your bookings here. \n\nEvery time a Book Now happens, one of 3 things may happen:\n\n- If we are API integrated back to the broker TMS (80%+ of the time), the book endpoint will ping the broker TMS \n  when your request is made and return a response code immediately, with a 201 if the booking was successful. \n\n- If the broker is not API integrated, we either need to run an asynchronous RPA or have the broker manually complete the booking, which can take up to 30 minutes.\n  If you want to set up a webhook to receive booking confirmation events via a webhook, please take a look at the Booking Confirmation Webhook documentation.\n"
+      description: 'Post your bookings here.
+
+
+        Every time a Book Now happens, one of 3 things may happen:
+
+
+        - If we are API integrated back to the broker TMS (80%+ of the time), the book endpoint will ping the broker TMS
+
+        when your request is made and return a response code immediately, with a 201 if the booking was successful.
+
+
+        - If the broker is not API integrated, we either need to run an asynchronous RPA or have the broker manually complete the booking, which can take up to 30 minutes.
+
+        If you want to set up a webhook to receive booking confirmation events via a webhook, please take a look at the Booking Confirmation Webhook documentation.'
       requestBody:
         content:
           application/json:
@@ -119,10 +132,16 @@ paths:
       operationId: drop_load
       tags:
       - Bookings
-      summary: 'Cancels a carrier booking.
+      summary: Cancels a carrier booking
+      description: 'This view is called by syndication partners that have previously reserved a load.
 
-        '
-      description: "This view is called by syndication partners that have previously reserved a load.\n\nThe process cancels the reservation and puts it in an abandoned status, because the carrier “dropped” the load.    \nThe carrier needs to be the one that previously reserved the load, otherwise an error will be returned.\n\nIf you need to cancel a Quote that hasn't been accepted yet, please use the Quote `/cancel` endpoint.\n"
+
+        The process cancels the reservation and puts it in an abandoned status, because the carrier “dropped” the load.
+
+        The carrier needs to be the one that previously reserved the load, otherwise an error will be returned.
+
+
+        If you need to cancel a Quote that hasn''t been accepted yet, please use the Quote `/cancel` endpoint.'
       requestBody:
         content:
           application/json:
@@ -153,6 +172,57 @@ paths:
             '
 components:
   schemas:
+    Drop:
+      type: object
+      required:
+      - load_reference_id
+      - carrier_name
+      - carrier_dot_number
+      - company_external_key
+      - reason_message
+      properties:
+        load_reference_id:
+          type: string
+          example: R131232
+        carrier_name:
+          type: string
+          example: Bob's Trucking
+        carrier_dot_number:
+          type: string
+          example: '23123123'
+          maxLength: 15
+        carrier_mc_number:
+          type: string
+          example: '13122'
+        carrier_email:
+          type: string
+          example: test@parade.ai
+        carrier_user_contact_name:
+          type: string
+          example: Bob
+        company_external_key:
+          type: string
+          example: reed
+        offer_external_key:
+          type: string
+          example: 32o847o8234
+        reason_message:
+          type: string
+          example: Too Heavy
+    BookingPendingBrokerResponse:
+      type: object
+      required:
+      - id
+      - message
+      properties:
+        id:
+          type: integer
+          example: 1341
+          description: Unique Parade ID for this booking/reservation.
+        message:
+          type: string
+          example: Successfully booked but pending broker assignment
+          description: Message indicating the status of the booking/reservation creation.
     BookingStatus:
       type: object
       required:
@@ -207,71 +277,6 @@ components:
           - Conflict
           - Confirm
           - Needs Action
-    BookingCreatedResponse:
-      type: object
-      required:
-      - id
-      - message
-      properties:
-        id:
-          type: integer
-          example: 1341
-          description: Unique Parade ID for this booking/reservation.
-        message:
-          type: string
-          example: Successfully booked over API
-          description: Message indicating the status of the booking/reservation creation.
-    Drop:
-      type: object
-      required:
-      - load_reference_id
-      - carrier_name
-      - carrier_dot_number
-      - company_external_key
-      - reason_message
-      properties:
-        load_reference_id:
-          type: string
-          example: R131232
-        carrier_name:
-          type: string
-          example: Bob's Trucking
-        carrier_dot_number:
-          type: string
-          example: '23123123'
-          maxLength: 15
-        carrier_mc_number:
-          type: string
-          example: '13122'
-        carrier_email:
-          type: string
-          example: test@parade.ai
-        carrier_user_contact_name:
-          type: string
-          example: Bob
-        company_external_key:
-          type: string
-          example: reed
-        offer_external_key:
-          type: string
-          example: 32o847o8234
-        reason_message:
-          type: string
-          example: Too Heavy
-    BookingPendingBrokerResponse:
-      type: object
-      required:
-      - id
-      - message
-      properties:
-        id:
-          type: integer
-          example: 1341
-          description: Unique Parade ID for this booking/reservation.
-        message:
-          type: string
-          example: Successfully booked but pending broker assignment
-          description: Message indicating the status of the booking/reservation creation.
     Booking:
       type: object
       required:
@@ -312,6 +317,20 @@ components:
           type: number
           description: In some cases we allow the API to provide an alternative rate. Providing `offer_rate` makes `offer_external_key` optional. Reach out to us if you want to enable this functionality.
           example: 1000
+    BookingCreatedResponse:
+      type: object
+      required:
+      - id
+      - message
+      properties:
+        id:
+          type: integer
+          example: 1341
+          description: Unique Parade ID for this booking/reservation.
+        message:
+          type: string
+          example: Successfully booked over API
+          description: Message indicating the status of the booking/reservation creation.
   securitySchemes:
     tokenAuth:
       type: apiKey

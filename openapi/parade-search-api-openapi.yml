@@ -8,9 +8,7 @@ info:
 
     If you wish to synchronize which actions a carrier is allowed to take
 
-    on a specific load, use the Digital Transactions API.
-
-    '
+    on a specific load, use the Digital Transactions API.'
   contact:
     email: eng@parade.ai
     name: Parade Eng Team
@@ -37,9 +35,7 @@ paths:
         Users are recommended to query and paginate to receive all available loads. Use page and limit query string parameters and the returned x-total-count header to paginate.
 
 
-        Any load that is no longer returned by this API should be considered unavailable and removed from third party loadboards.
-
-        '
+        Any load that is no longer returned by this API should be considered unavailable and removed from third party loadboards.'
       parameters:
       - name: src_date
         in: query
@@ -189,6 +185,25 @@ paths:
             '
 components:
   schemas:
+    EquipmentMetadata:
+      type: object
+      description: 'For all possible equipment metadata keys, please refer to https://www.notion.so/parade/Equipment-Metadata-EXTERNAL-f801210627c5487f8940cf02b3a25afd?pvs=4
+
+        '
+      properties:
+        TRAILER_TYPE:
+          type: object
+          example:
+            TRAILER_TYPE:
+              VAN: true
+          description: Key value pairings indicating all valid equipment trailer types
+        EXTRAS:
+          type: object
+          example:
+            EXTRAS:
+              LENGTH: 53
+              TEAM: true
+          description: Key value pairings indicating all other extras and accessorials
     Stop:
       type: object
       required:
@@ -396,25 +411,6 @@ components:
           example:
           - quote
           - book
-    EquipmentMetadata:
-      type: object
-      description: 'For all possible equipment metadata keys, please refer to https://www.notion.so/parade/Equipment-Metadata-EXTERNAL-f801210627c5487f8940cf02b3a25afd?pvs=4
-
-        '
-      properties:
-        TRAILER_TYPE:
-          type: object
-          example:
-            TRAILER_TYPE:
-              VAN: true
-          description: Key value pairings indicating all valid equipment trailer types
-        EXTRAS:
-          type: object
-          example:
-            EXTRAS:
-              LENGTH: 53
-              TEAM: true
-          description: Key value pairings indicating all other extras and accessorials
   securitySchemes:
     tokenAuth:
       type: apiKey

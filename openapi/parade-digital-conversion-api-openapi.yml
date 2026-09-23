@@ -4,9 +4,7 @@ info:
   description: 'Webhooks set up on the partner side to receive notifications from Parade.
 
 
-    Please contact us to set up URLs.
-
-    '
+    Please contact us to set up URLs.'
   contact:
     email: eng@parade.ai
     name: Parade Eng Team
