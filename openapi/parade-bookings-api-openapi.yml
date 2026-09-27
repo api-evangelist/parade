@@ -172,43 +172,6 @@ paths:
             '
 components:
   schemas:
-    Drop:
-      type: object
-      required:
-      - load_reference_id
-      - carrier_name
-      - carrier_dot_number
-      - company_external_key
-      - reason_message
-      properties:
-        load_reference_id:
-          type: string
-          example: R131232
-        carrier_name:
-          type: string
-          example: Bob's Trucking
-        carrier_dot_number:
-          type: string
-          example: '23123123'
-          maxLength: 15
-        carrier_mc_number:
-          type: string
-          example: '13122'
-        carrier_email:
-          type: string
-          example: test@parade.ai
-        carrier_user_contact_name:
-          type: string
-          example: Bob
-        company_external_key:
-          type: string
-          example: reed
-        offer_external_key:
-          type: string
-          example: 32o847o8234
-        reason_message:
-          type: string
-          example: Too Heavy
     BookingPendingBrokerResponse:
       type: object
       required:
@@ -223,6 +186,46 @@ components:
           type: string
           example: Successfully booked but pending broker assignment
           description: Message indicating the status of the booking/reservation creation.
+    Booking:
+      type: object
+      required:
+      - carrier_dot_number
+      - carrier_email
+      - carrier_name
+      - carrier_phone_number
+      - company_external_key
+      - load_reference_id
+      - offer_external_key
+      properties:
+        carrier_name:
+          type: string
+          example: Bob's Trucking
+        carrier_dot_number:
+          type: string
+          example: '23123123'
+        carrier_mc_number:
+          type: string
+          example: '13122'
+        carrier_email:
+          type: string
+          example: test@parade.ai
+        carrier_phone_number:
+          type: string
+          example: 510-022-0222
+        company_external_key:
+          type: string
+          example: reed
+        load_reference_id:
+          type: string
+          example: R131232
+        offer_external_key:
+          type: string
+          description: Used to validate if the rate offered to the carrier is still valid
+          example: 32o847o8234
+        offer_rate:
+          type: number
+          description: In some cases we allow the API to provide an alternative rate. Providing `offer_rate` makes `offer_external_key` optional. Reach out to us if you want to enable this functionality.
+          example: 1000
     BookingStatus:
       type: object
       required:
@@ -277,46 +280,43 @@ components:
           - Conflict
           - Confirm
           - Needs Action
-    Booking:
+    Drop:
       type: object
       required:
-      - carrier_dot_number
-      - carrier_email
-      - carrier_name
-      - carrier_phone_number
-      - company_external_key
       - load_reference_id
-      - offer_external_key
+      - carrier_name
+      - carrier_dot_number
+      - company_external_key
+      - reason_message
       properties:
+        load_reference_id:
+          type: string
+          example: R131232
         carrier_name:
           type: string
           example: Bob's Trucking
         carrier_dot_number:
           type: string
           example: '23123123'
+          maxLength: 15
         carrier_mc_number:
           type: string
           example: '13122'
         carrier_email:
           type: string
           example: test@parade.ai
-        carrier_phone_number:
+        carrier_user_contact_name:
           type: string
-          example: 510-022-0222
+          example: Bob
         company_external_key:
           type: string
           example: reed
-        load_reference_id:
-          type: string
-          example: R131232
         offer_external_key:
           type: string
-          description: Used to validate if the rate offered to the carrier is still valid
           example: 32o847o8234
-        offer_rate:
-          type: number
-          description: In some cases we allow the API to provide an alternative rate. Providing `offer_rate` makes `offer_external_key` optional. Reach out to us if you want to enable this functionality.
-          example: 1000
+        reason_message:
+          type: string
+          example: Too Heavy
     BookingCreatedResponse:
       type: object
       required:

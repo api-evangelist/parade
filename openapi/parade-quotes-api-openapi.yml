@@ -189,102 +189,6 @@ paths:
             '
 components:
   schemas:
-    Quote404ErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          type: string
-          example: Load not found
-          description: Error message indicating the failure
-    QuoteCreationResponse:
-      type: object
-      required:
-      - id
-      - message
-      properties:
-        id:
-          type: integer
-          example: 1341
-          description: Unique Parade ID for this quote.
-        message:
-          type: string
-          example: quote created
-          description: Message indicating the status of the quote creation.
-    Cancel:
-      type: object
-      properties:
-        reason:
-          type: string
-          description: Optional reason for the quote cancellation
-    Quote410ErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          type: string
-          example: Load is no longer available
-          description: Error message indicating the failure
-    Quote:
-      type: object
-      required:
-      - carrier_dot_number
-      - carrier_email
-      - carrier_name
-      - carrier_phone_number
-      - company_external_key
-      - external_posting_id
-      - quote_amount
-      properties:
-        carrier_name:
-          type: string
-          example: Bob's Trucking
-        carrier_dot_number:
-          type: string
-          example: '23123123'
-        carrier_mc_number:
-          type: string
-          example: '13122'
-        carrier_email:
-          type: string
-          example: test@parade.ai
-        carrier_phone_number:
-          type: string
-          example: 510-022-0222
-        company_external_key:
-          type: string
-          example: reed
-        external_posting_id:
-          type: string
-          format: identifier
-          example: A100B4
-          description: Unique internal ID for this load posting. Do not display this to carriers.
-        load_reference_id:
-          type: string
-          example: R131232
-        quote_amount:
-          type: string
-          example: '680.00'
-    Quote400ErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          type: string
-          example: WrongMcOrDotNumberError
-          description: Error message indicating the failure
-    Quote406ErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          type: string
-          example: Carrier disqualified
-          description: Error message indicating the failure
     QuoteStatus:
       type: object
       required:
@@ -333,6 +237,102 @@ components:
         expired_at:
           type: string
           description: When the quote was expired
+    Quote404ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
+          example: Load not found
+          description: Error message indicating the failure
+    Quote410ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
+          example: Load is no longer available
+          description: Error message indicating the failure
+    Cancel:
+      type: object
+      properties:
+        reason:
+          type: string
+          description: Optional reason for the quote cancellation
+    QuoteCreationResponse:
+      type: object
+      required:
+      - id
+      - message
+      properties:
+        id:
+          type: integer
+          example: 1341
+          description: Unique Parade ID for this quote.
+        message:
+          type: string
+          example: quote created
+          description: Message indicating the status of the quote creation.
+    Quote400ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
+          example: WrongMcOrDotNumberError
+          description: Error message indicating the failure
+    Quote:
+      type: object
+      required:
+      - carrier_dot_number
+      - carrier_email
+      - carrier_name
+      - carrier_phone_number
+      - company_external_key
+      - external_posting_id
+      - quote_amount
+      properties:
+        carrier_name:
+          type: string
+          example: Bob's Trucking
+        carrier_dot_number:
+          type: string
+          example: '23123123'
+        carrier_mc_number:
+          type: string
+          example: '13122'
+        carrier_email:
+          type: string
+          example: test@parade.ai
+        carrier_phone_number:
+          type: string
+          example: 510-022-0222
+        company_external_key:
+          type: string
+          example: reed
+        external_posting_id:
+          type: string
+          format: identifier
+          example: A100B4
+          description: Unique internal ID for this load posting. Do not display this to carriers.
+        load_reference_id:
+          type: string
+          example: R131232
+        quote_amount:
+          type: string
+          example: '680.00'
+    Quote406ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
+          example: Carrier disqualified
+          description: Error message indicating the failure
   securitySchemes:
     tokenAuth:
       type: apiKey
