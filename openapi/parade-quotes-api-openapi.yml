@@ -237,14 +237,28 @@ components:
         expired_at:
           type: string
           description: When the quote was expired
-    Quote404ErrorResponse:
+    QuoteCreationResponse:
+      type: object
+      required:
+      - id
+      - message
+      properties:
+        id:
+          type: integer
+          example: 1341
+          description: Unique Parade ID for this quote.
+        message:
+          type: string
+          example: quote created
+          description: Message indicating the status of the quote creation.
+    Quote406ErrorResponse:
       type: object
       required:
       - error
       properties:
         error:
           type: string
-          example: Load not found
+          example: Carrier disqualified
           description: Error message indicating the failure
     Quote410ErrorResponse:
       type: object
@@ -261,29 +275,6 @@ components:
         reason:
           type: string
           description: Optional reason for the quote cancellation
-    QuoteCreationResponse:
-      type: object
-      required:
-      - id
-      - message
-      properties:
-        id:
-          type: integer
-          example: 1341
-          description: Unique Parade ID for this quote.
-        message:
-          type: string
-          example: quote created
-          description: Message indicating the status of the quote creation.
-    Quote400ErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          type: string
-          example: WrongMcOrDotNumberError
-          description: Error message indicating the failure
     Quote:
       type: object
       required:
@@ -324,14 +315,23 @@ components:
         quote_amount:
           type: string
           example: '680.00'
-    Quote406ErrorResponse:
+    Quote400ErrorResponse:
       type: object
       required:
       - error
       properties:
         error:
           type: string
-          example: Carrier disqualified
+          example: WrongMcOrDotNumberError
+          description: Error message indicating the failure
+    Quote404ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
+          example: Load not found
           description: Error message indicating the failure
   securitySchemes:
     tokenAuth:
