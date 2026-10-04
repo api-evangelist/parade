@@ -185,25 +185,6 @@ paths:
             '
 components:
   schemas:
-    EquipmentMetadata:
-      type: object
-      description: 'For all possible equipment metadata keys, please refer to https://www.notion.so/parade/Equipment-Metadata-EXTERNAL-f801210627c5487f8940cf02b3a25afd?pvs=4
-
-        '
-      properties:
-        TRAILER_TYPE:
-          type: object
-          example:
-            TRAILER_TYPE:
-              VAN: true
-          description: Key value pairings indicating all valid equipment trailer types
-        EXTRAS:
-          type: object
-          example:
-            EXTRAS:
-              LENGTH: 53
-              TEAM: true
-          description: Key value pairings indicating all other extras and accessorials
     Load:
       required:
       - booking_link
@@ -411,6 +392,25 @@ components:
           type: string
           description: Street Address (Second line). Most brokers suppress this data.
           example: ASK BROKER
+    EquipmentMetadata:
+      type: object
+      description: 'For all possible equipment metadata keys, please refer to https://www.notion.so/parade/Equipment-Metadata-EXTERNAL-f801210627c5487f8940cf02b3a25afd?pvs=4
+
+        '
+      properties:
+        TRAILER_TYPE:
+          type: object
+          example:
+            TRAILER_TYPE:
+              VAN: true
+          description: Key value pairings indicating all valid equipment trailer types
+        EXTRAS:
+          type: object
+          example:
+            EXTRAS:
+              LENGTH: 53
+              TEAM: true
+          description: Key value pairings indicating all other extras and accessorials
   securitySchemes:
     tokenAuth:
       type: apiKey

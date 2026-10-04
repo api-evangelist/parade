@@ -237,6 +237,15 @@ components:
         expired_at:
           type: string
           description: When the quote was expired
+    Quote400ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
+          example: WrongMcOrDotNumberError
+          description: Error message indicating the failure
     QuoteCreationResponse:
       type: object
       required:
@@ -251,30 +260,6 @@ components:
           type: string
           example: quote created
           description: Message indicating the status of the quote creation.
-    Quote406ErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          type: string
-          example: Carrier disqualified
-          description: Error message indicating the failure
-    Quote410ErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          type: string
-          example: Load is no longer available
-          description: Error message indicating the failure
-    Cancel:
-      type: object
-      properties:
-        reason:
-          type: string
-          description: Optional reason for the quote cancellation
     Quote:
       type: object
       required:
@@ -315,15 +300,6 @@ components:
         quote_amount:
           type: string
           example: '680.00'
-    Quote400ErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          type: string
-          example: WrongMcOrDotNumberError
-          description: Error message indicating the failure
     Quote404ErrorResponse:
       type: object
       required:
@@ -332,6 +308,30 @@ components:
         error:
           type: string
           example: Load not found
+          description: Error message indicating the failure
+    Cancel:
+      type: object
+      properties:
+        reason:
+          type: string
+          description: Optional reason for the quote cancellation
+    Quote406ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
+          example: Carrier disqualified
+          description: Error message indicating the failure
+    Quote410ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
+          example: Load is no longer available
           description: Error message indicating the failure
   securitySchemes:
     tokenAuth:
